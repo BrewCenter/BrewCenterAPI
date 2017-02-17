@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from brew_data.models import HopType, Hop
+from brew_data.models.hop import HopType, Hop
 
 class HopTypeSerializer(serializers.ModelSerializer):
     """Simple FermentableType Serializer"""
