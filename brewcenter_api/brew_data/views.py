@@ -2,55 +2,66 @@ from django.shortcuts import render
 from rest_framework import serializers as rf_serializers
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated
 
-from brew_data.models.country_code import CountryCode
-from brew_data.models.style import Style
-from brew_data.models.fermentable import Fermentable, FermentableType
-from brew_data.models.hop import Hop, HopType
-from brew_data.models.yeast import Yeast, YeastType
-
-from brew_data import serializers
+from . import models
+from . import serializers
 
 from rest_framework.decorators import api_view
 
-from rest_framework import viewsets
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
+def styles(request):
+    """Returns all styles in the system as JSON"""
+    serializer = rf_serializers.ListSerializer(models.Style.objects.all(), child=serializers.SimpleStyleSerializer())
+    return Response(serializer.data)
 
-class StyleViewSet(viewsets.ModelViewSet):
-    """Returns All Beer Styles"""
-    serializer_class = serializers.style.SimpleStyleSerializer
-    queryset = Style.objects.all()
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
+def countries(request):
+    """Returns all countries in the system as JSON"""
+    serializer = rf_serializers.ListSerializer(models.CountryCode.objects.all(), child=serializers.CountryCodeSerializer())
+    return Response(serializer.data)
 
-class CountryViewSet(viewsets.ModelViewSet):
-    """Returns All Countries"""
-    serializer_class = serializers.country.CountryCodeSerializer
-    queryset = CountryCode.objects.all()
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
+def fermentable_types(request):
+    """Returns all fermentables in the system as JSON"""
+    serializer = rf_serializers.ListSerializer(models.FermentableType.objects.all(), child=serializers.FermentableTypeSerializer())
+    return Response(serializer.data)
 
-class FermentableTypeViewSet(viewsets.ModelViewSet):
-    """Returns All Fermentable Types"""
-    serializer_class = serializers.fermentable.FermentableTypeSerializer
-    queryset = FermentableType.objects.all()
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
+def fermentables(request):
+    """Returns all fermentables in the system as JSON"""
+    serializer = rf_serializers.ListSerializer(models.Fermentable.objects.all(), child=serializers.SimpleFermentableSerializer())
+    return Response(serializer.data)
 
-class FermentableViewSet(viewsets.ModelViewSet):
-    """Returns All Fermentables"""
-    serializer_class = serializers.fermentable.SimpleFermentableSerializer
-    queryset = Fermentable.objects.all()
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
+def hop_types(request):
+    """Returns all hop types in the system as JSON"""
+    serializer = rf_serializers.ListSerializer(models.HopType.objects.all(), child=serializers.HopTypeSerializer())
+    return Response(serializer.data)
 
-class HopTypeViewSet(viewsets.ModelViewSet):
-    """Returns All Beer Styles"""
-    serializer_class = serializers.hop.HopTypeSerializer
-    queryset = HopType.objects.all()
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
+def hops(request):
+    """Returns all hops in the system as JSON"""
+    serializer = rf_serializers.ListSerializer(models.Hop.objects.all(), child=serializers.SimpleHopSerializer())
+    return Response(serializer.data)
 
-class HopViewSet(viewsets.ModelViewSet):
-    """Returns All Beer Styles"""
-    serializer_class = serializers.hop.SimpleHopSerializer
-    queryset = Hop.objects.all()
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
+def yeast_types(request):
+    """Returns all yeast types in the system as JSON"""
+    serializer = rf_serializers.ListSerializer(models.YeastType.objects.all(), child=serializers.YeastTypeSerializer())
+    return Response(serializer.data)
 
-class YeastTypeViewSet(viewsets.ModelViewSet):
-    """Returns All Beer Styles"""
-    serializer_class = serializers.yeast.YeastTypeSerializer
-    queryset = YeastType.objects.all()
-
-class YeastViewSet(viewsets.ModelViewSet):
-    """Returns All Beer Styles"""
-    serializer_class = serializers.yeast.SimpleYeastSerializer
-    queryset = Yeast.objects.all()
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
+def yeast(request):
+    """Returns all yeast in the system as JSON"""
+    serializer = rf_serializers.ListSerializer(models.Yeast.objects.all(), child=serializers.SimpleYeastSerializer())
+    return Response(serializer.data)

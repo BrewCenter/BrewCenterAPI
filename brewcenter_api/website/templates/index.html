@@ -3,5 +3,28 @@
 {% block title %}Brew Center API{% endblock %}
 
 {% block content %}
-index
+<div class="container">
+  <div class="col-md-2 col-sm-4 col-xs-12 no-padding-xs">
+    <ul class="nav nav-pills nav-stacked">
+      <li role="presentation" class="active"><a href="#styles" aria-controls="styles" role="tab" data-toggle="tab">Styles</a></li>
+      <li role="presentation"><a href="#countries" aria-controls="countries" role="tab" data-toggle="tab">Countries</a></li>
+      <li role="presentation"><a href="#fermentables" aria-controls="fermentables" role="tab" data-toggle="tab">Fermentables</a></li>
+      <li role="presentation"><a href="#fermentable_types" aria-controls="fermentable_types" role="tab" data-toggle="tab">Fermentable Types</a></li>
+      <li role="presentation"><a href="#hops" aria-controls="hops" role="tab" data-toggle="tab">Hops</a></li>
+      <li role="presentation"><a href="#hop_types" aria-controls="hop_types" role="tab" data-toggle="tab">Hop Types</a></li>
+      <li role="presentation"><a href="#yeast" aria-controls="yeast" role="tab" data-toggle="tab">Yeast</a></li>
+      <li role="presentation"><a href="#yeast_types" aria-controls="yeast_types" role="tab" data-toggle="tab">Yeast Types</a></li>
+    </ul>
+  </div>
+  <div class="col-md-10 col-sm-8 col-xs-12 tab-content panel panel-default">
+    {% include "docs/data/styles.html" %}
+    {% include "docs/data/countries.html" %}
+    {% include "docs/data/ingredients/fermentables.html" %}
+    {% include "docs/data/ingredients/fermentable_types.html" %}
+    {% include "docs/data/ingredients/hops.html" %}
+    {% include "docs/data/ingredients/hop_types.html" %}
+    {% include "docs/data/ingredients/yeast.html" %}
+    {% include "docs/data/ingredients/yeast_types.html" %}
+  </div>
+</div>
 {% endblock %}

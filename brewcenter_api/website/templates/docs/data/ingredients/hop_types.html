@@ -1,0 +1,38 @@
+{% extends 'docs/data/endpoint.html' %}
+
+{% block endpoint_id %}hop_types{% endblock %}
+
+{% block endpoint_title %}
+  Hop Types
+{% endblock %}
+
+{% block endpoint_url %}
+{% with endpoint_url='/data/ingredients/hop_types' %}
+  {{ block.super }}
+{% endwith %}
+{% endblock %}
+
+{% block endpoint_desc %}
+  This method returns all hop types.
+{% endblock %}
+
+{% block endpoint_methods %}
+  Method: GET
+{% endblock %}
+
+{% block endpoint_sample %}
+  [
+    {
+      "id": 1,
+      "name": "Bittering"
+    },
+    {
+      "id": 2,
+      "name": "Aroma"
+    },
+    {
+      "id": 3,
+      "name": "Both"
+    }
+  ]
+{% endblock %}

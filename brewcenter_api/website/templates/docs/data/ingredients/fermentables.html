@@ -1,0 +1,52 @@
+{% extends 'docs/data/endpoint.html' %}
+
+{% block endpoint_id %}fermentables{% endblock %}
+
+{% block endpoint_title %}
+  Fermentables
+{% endblock %}
+
+{% block endpoint_url %}
+{% with endpoint_url='/data/ingredients/fermentables' %}
+  {{ block.super }}
+{% endwith %}
+{% endblock %}
+
+{% block endpoint_desc %}
+  This method returns all known fermentable materials, as well as their PPG,
+  and lovibond number, among other data.
+{% endblock %}
+
+{% block endpoint_methods %}
+  Method: GET
+{% endblock %}
+
+{% block endpoint_sample %}
+  [
+    {
+      "id": 1,
+      "name": "Acid Malt",
+      "type_id": 1,
+      "country_id": 1,
+      "ppg": 27.002,
+      "lovibond": 3.0
+    },
+    {
+      "id": 2,
+      "name": "Amber Malt",
+      "type_id": 1,
+      "country_id": 2,
+      "ppg": 34.5,
+      "lovibond": 22.0
+    },
+    {
+      "id": 3,
+      "name": "Aromatic Malt",
+      "type_id": 1,
+      "country_id": 3,
+      "ppg": 35.88,
+      "lovibond": 26.0
+    },
+    ...
+  ]
+{% endblock %}

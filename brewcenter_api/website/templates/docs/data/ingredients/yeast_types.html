@@ -1,0 +1,46 @@
+{% extends 'docs/data/endpoint.html' %}
+
+{% block endpoint_id %}yeast_types{% endblock %}
+
+{% block endpoint_title %}
+  Yeast Types
+{% endblock %}
+
+{% block endpoint_url %}
+{% with endpoint_url='/data/ingredients/yeast/types' %}
+  {{ block.super }}
+{% endwith %}
+{% endblock %}
+
+{% block endpoint_desc %}
+  This method returns all yeast types.
+{% endblock %}
+
+{% block endpoint_methods %}
+  Method: GET
+{% endblock %}
+
+{% block endpoint_sample %}
+  [
+    {
+      "id": 1,
+      "name": "Ale"
+    },
+    {
+      "id": 2,
+      "name": "Wheat"
+    },
+    {
+      "id": 3,
+      "name": "Wine"
+    },
+    {
+      "id": 4,
+      "name": "Champagne"
+    },
+    {
+      "id": 5,
+      "name": "Lager"
+    }
+  ]
+{% endblock %}

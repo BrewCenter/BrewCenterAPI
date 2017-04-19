@@ -1,5 +1,5 @@
 from django.db import models
-from brew_data.models.country_code import CountryCode
+from brew_data.models import CountryCode
 
 class HopType(models.Model):
     """

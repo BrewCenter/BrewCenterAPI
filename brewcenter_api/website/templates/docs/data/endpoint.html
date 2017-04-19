@@ -1,0 +1,21 @@
+<div role="tabpanel" class="tab-pane {% block tab_class %}{% endblock %}" id="{% block endpoint_id %}{% endblock %}">
+  <div class="panel-body">
+    <h1>{% block endpoint_title %}{% endblock %}</h1>
+    {% block endpoint_url %}
+      {% if user.is_authenticated %}
+        <a href="{{endpoint_url}}"><h2><code>{{endpoint_url}}</code></h2></a>
+      {% else %}
+        <h2><code>{{endpoint_url}}</code></h2>
+      {% endif %}
+    {% endblock %}
+    <hr/>
+    <p>
+      {% block endpoint_desc %}{% endblock %}
+    </p>
+    <strong>{% block endpoint_methods %}{% endblock %}</strong>
+    <pre>
+      {% block endpoint_sample %}{% endblock %}
+    </pre>
+    <hr/>
+  </div>
+</div>

@@ -6,12 +6,7 @@ import sqlite3 as sql
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
-from brew_data.models.country_code import CountryCode
-from brew_data.models.style import Style
-from brew_data.models.fermentable import Fermentable, FermentableType
-from brew_data.models.hop import Hop, HopType
-from brew_data.models.yeast import Yeast, YeastType
-
+from brew_data.models import CountryCode, FermentableType, Fermentable, HopType, Hop, YeastType, Yeast, Style
 import brew_data.data_miner.brew_target.miner as brew_target_miner
 
 class Command(BaseCommand):
