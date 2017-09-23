@@ -17,5 +17,4 @@ from django.conf.urls import include, url
 
 urlpatterns = [
     url(r'^data/', include('brew_data.urls', namespace='api')),
-    url('', include('website.urls'))
 ]
