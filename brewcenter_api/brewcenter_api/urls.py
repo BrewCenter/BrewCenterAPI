@@ -16,5 +16,6 @@ Including another URLconf
 from django.conf.urls import include, url
 
 urlpatterns = [
-    url(r'^data/', include('brew_data.urls', namespace='api')),
+    url(r'^data/', include('brew_data.urls', namespace='data')),
+    url(r'^accounts/', include('accounts.urls', namespace='accounts')),
 ]
