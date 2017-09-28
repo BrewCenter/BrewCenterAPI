@@ -7,17 +7,17 @@ pip install -r requirements.txt
 ```
 Then, copy `brewcenter_api/example.settings.py` to `brewcenter_api/settings.py` and modify to your needs.
 
-Create your database:
+To create your database, execute the followng command:
 ```
 python manage.py migrate
 ```
 
-Update your data by mining known sources:
+To update your data by mining known sources, execute the followng command:
 ```
 python manage.py updatedata
 ```
 
-Run the app:
+TO run the app, execute the followng command:
 ```
 python manage.py runserver
 ```
