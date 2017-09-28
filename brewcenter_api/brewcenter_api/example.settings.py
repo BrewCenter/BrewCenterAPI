@@ -27,17 +27,33 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    )
+}
+
+REST_USE_JWT = True
+SITE_ID = 1
+APPEND_SLASH = False
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts',
+    'allauth',
+    'allauth.account',
     'brew_data',
-    'rest_framework',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
+    'rest_auth',
+    'rest_auth.registration',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
