@@ -10,6 +10,8 @@ class YeastTypes(APIView):
     """
     Methods to Retrieve and Suggest new Yeast Types.
     """
+    authentication_classes = (JSONWebTokenAuthentication, )
+    permission_classes = (IsAuthenticated, )
 
     def get(self, request):
         """
