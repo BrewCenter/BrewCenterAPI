@@ -17,7 +17,7 @@ To update your data by mining known sources, execute the followng command:
 python manage.py updatedata
 ```
 
-TO run the app, execute the followng command:
+To run the app, execute the followng command:
 ```
 python manage.py runserver
 ```
