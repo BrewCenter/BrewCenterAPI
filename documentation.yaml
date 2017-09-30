@@ -1,0 +1,320 @@
+openapi: '3.0.0'
+info: 
+  version: 0.0.1
+  title: BrewCenter API
+paths:
+  /data/styles:
+    get:
+      summary: Returns all the beer styles. Do not show suggested beer styles by default
+      tags:
+      - Data
+      - Styles
+      security: 
+      - jwt:
+        - any
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SavedNamedObjects'
+        401:
+          $ref: '#/components/responses/unauthorized'
+  /data/countries:
+    get:
+      summary: View to retrieve all countries from the API
+      tags:
+      - Countries
+      - Data
+      security: 
+      - jwt:
+        - any
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SavedCountries'
+        401:
+          $ref: '#/components/responses/unauthorized'
+  /data/ingredients/fermentables:
+    get:
+      summary: View to retrieve all approve fermentables
+      tags:
+      - Fermentables
+      - Data
+      - Ingredients
+      security:
+      - jwt:
+        - any
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SavedFermentables'
+        '401':
+          $ref: '#/components/responses/unauthorized'
+  /data/ingredients/fermentables/types:
+    get:
+      summary: View to retrieve fermentable ingredient types
+      tags:
+      - Fermentables
+      - Types
+      - Data
+      security: 
+      - jwt:
+        - anyy
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SavedFermentableTypes'
+        '401':
+          $ref: '#/components/responses/unauthorized'
+  /data/ingredients/hops:
+    get:
+      summary: View to retrieve all approved hops
+      tags:
+      - Hops
+      - Ingredients
+      - Data
+      security: 
+      - jwt:
+        - any
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SavedHops'
+        '401':
+          $ref: '#/components/responses/unauthorized'
+  /data/ingredients/hop/types:
+    get:
+      summary: Returns all hop types in the system
+      tags:
+      - Hops
+      - Ingredients
+      - Data
+      - Types
+      security: 
+      - jwt:
+        - any
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SavedNamedObjects'
+        '400':
+          $ref: '#/components/responses/unauthorized'
+  /data/ingredients/yeast:
+    get:
+      summary: Methods to retrieve yeast strains
+      tags:
+        - Yeasts
+        - Ingredients
+        - Data
+      security: 
+      - jwt:
+        - any
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SavedYeast'
+        '401':
+          $ref: '#/components/responses/unauthorized'
+  /data/ingredients/yeast/types:
+    get:
+      summary: Methods to retrieve new yeast types
+      tags:
+      - Yeasts
+      - Ingredients
+      - Data
+      - Types
+      security: 
+      - jwt:
+        - any
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SavedNamedObjects'
+        '400':
+          $ref: '#/components/responses/unauthorized'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+    Object:
+      type: object
+      properties:
+        id:
+          type: number
+      required:
+      - id
+    NamedObject:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+    ValidatedNamedObject:
+      allOf:
+      - $ref: '#/components/schemas/NamedObject'
+      required:
+      - name
+    SavedNamedObject:
+      allOf:
+      - $ref: '#/components/schemas/Object'
+      - $ref: '#/components/schemas/ValidatedNamedObject'
+    SavedNamedObjects:
+      type: array
+      items:
+        $ref: '#/components/schemas/SavedNamedObject'
+    Country:
+      type: object
+      properties:
+        code:
+          type: string
+      required: 
+      - code
+    SavedCountry:
+      allOf:
+      - $ref: '#/components/schemas/Object'
+      - $ref: '#/components/schemas/Country'
+    SavedCountries:
+      type: array
+      items:
+        $ref: '#/components/schemas/SavedCountry'
+    Fermentable:
+      allOf:
+      - $ref: '#/components/schemas/NamedObject'
+      - type: object
+        properties:
+          type_id:
+            type: integer
+          country_id:
+            type: integer
+          ppg:
+            type: number
+          lovibond:
+            type: number
+      required:
+      - type_id
+      - country_id
+    SavedFermentable:
+      allOf:
+      - $ref: '#/components/schemas/SavedNamedObject'
+      - $ref: '#/components/schemas/Fermentable'
+    SavedFermentables:
+      type: array
+      items:
+        $ref: '#/components/schemas/SavedFermentable'
+    FermentableType:
+      allOf:
+      - $ref: '#/components/schemas/NamedObject'
+      - type: object
+        properties:
+          abbreviation:
+            type: string
+            maxLength: 10
+    ValidatedFermentableType:
+      allOf:
+      - $ref: '#/components/schemas/ValidatedNamedObject'
+      - $ref: '#/components/schemas/FermentableType'
+    SavedFermentableType:
+      allOf:
+      - $ref: '#/components/schemas/SavedNamedObject'
+      - $ref: '#/components/schemas/ValidatedFermentableType'
+    SavedFermentableTypes:
+      type: array
+      items:
+        $ref: '#/components/schemas/SavedFermentableType'
+    Hop:
+      allOf:
+      - $ref: '#/components/schemas/NamedObject'
+      - type: object
+        properties:
+          type_id:
+            type: integer
+          country_id:
+            type: integer
+          alpha_acids:
+            type: number
+          beta_acids:
+            type: number
+        required:
+        - type_id
+        - country_id
+    ValidatedHop:
+      allOf:
+      - $ref: '#/components/schemas/ValidatedNamedObject'
+      - $ref: '#/components/schemas/Hop'
+    SavedHop:
+      allOf:
+      - $ref: '#/components/schemas/SavedNamedObject'
+      - $ref: '#/components/schemas/ValidatedHop'
+    SavedHops:
+      type: array
+      items:
+        $ref: '#/components/schemas/SavedHop'
+    Yeast:
+      allOf:
+      - $ref: '#/components/schemas/NamedObject'
+      - type: object
+        properties:
+          type_id:
+            type: integer
+          min_temp:
+            type: number
+          max_temp:
+            type: number
+          flocculation:
+            type: string
+            maxLength: 255
+          attenuation:
+            type: number
+    ValidatedYeast:
+      allOf:
+      - $ref: '#/components/schemas/ValidatedNamedObject'
+      - $ref: '#/components/schemas/Yeast'
+    SavedYeast:
+      allOf:
+      - $ref: '#/components/schemas/SavedNamedObject'
+      - $ref: '#/components/schemas/ValidatedYeast'
+    SavedYeasts:
+      type: array
+      items:
+        $ref: '#/components/schemas/SavedYeast'
+  responses:
+    unauthorized:
+      description: Unauthorized. Requires sign in
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      
+      
+  
