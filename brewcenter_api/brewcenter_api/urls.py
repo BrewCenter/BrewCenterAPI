@@ -24,6 +24,6 @@ urlpatterns = [
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
-    url(r'^documentation', schema_view),
+    url(r'^documentation', include('docs.urls')),
     url(r'^auth/token-refresh', refresh_jwt_token),
 ]
