@@ -1,4 +1,8 @@
+from django.contrib.auth.models import User
 from django.db import models
+
+from brewcenter_api.accounts.models import Token
+
 
 class YeastType(models.Model):
     """
@@ -7,8 +11,20 @@ class YeastType(models.Model):
     - Lager
     """
     name = models.CharField(max_length=255)
+
     def __str__(self):
         return self.name
+
+
+class YeastTypeRecommendation(models.Model):
+    model = models.ForeignKey(YeastType, null=True, blank=True)
+    accepted = models.BooleanField(default=False)
+    replaces = models.ForeignKey(YeastType, null=True, blank=True)
+    user = models.ForeignKey(User)
+    user_token = models.ForeignKey(Token)
+
+    def __str__(self):
+        return self.model
 
 
 class Yeast(models.Model):
@@ -31,3 +47,14 @@ class Yeast(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class YeastRecommendation(models.Model):
+    model = models.ForeignKey(Yeast, null=True, blank=True)
+    accepted = models.BooleanField(default=False)
+    replaces = models.ForeignKey(Yeast, null=True, blank=True)
+    user = models.ForeignKey(User)
+    user_token = models.ForeignKey(Token)
+
+    def __str__(self):
+        return self.model
