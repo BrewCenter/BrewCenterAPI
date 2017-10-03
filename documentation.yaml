@@ -67,7 +67,7 @@ paths:
       - Data
       security: 
       - jwt:
-        - anyy
+        - any
       responses:
         '200':
           description: OK
