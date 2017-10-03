@@ -14,10 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import include, url
-from rest_framework_swagger.views import get_swagger_view
 from rest_framework_jwt.views import refresh_jwt_token
 
-schema_view = get_swagger_view(title='BrewCenter API')
 
 urlpatterns = [
     url(r'^data/', include('brew_data.urls', namespace='data')),
