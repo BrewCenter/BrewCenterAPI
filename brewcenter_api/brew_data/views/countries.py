@@ -1,20 +1,20 @@
-from rest_framework import serializers as rf_serializers
+from rest_framework import viewsets, serializers as rf_serializers
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from brew_data import models, serializers
+from accounts.auth import TokenAuthentication 
 
 
-class Countries(APIView):
+class Countries(viewsets.ViewSet):
     """
     View to retrieve all countries from the API
     """
-    authentication_classes = (JSONWebTokenAuthentication, )
+    authentication_classes = (JSONWebTokenAuthentication, TokenAuthentication)
     permission_classes = (IsAuthenticated, )
 
-    def get(self, request):
+    def list(self, request):
         """
         Returns all countries in the system.
         """

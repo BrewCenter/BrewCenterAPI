@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from rest_framework_swagger.views import get_swagger_view
+from rest_framework_jwt.views import refresh_jwt_token
 
 schema_view = get_swagger_view(title='BrewCenter API')
 
@@ -24,4 +25,5 @@ urlpatterns = [
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^documentation', schema_view)
+    url(r'^auth/token-refresh', refresh_jwt_token),
 ]
