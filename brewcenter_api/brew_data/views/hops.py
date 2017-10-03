@@ -4,13 +4,13 @@ from rest_framework.response import Response
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from brew_data import models, serializers
-
+from accounts.auth import TokenAuthentication
 
 class HopTypes(viewsets.ViewSet):
     """
     View to Retrieve hop Types.
     """
-    authentication_classes = (JSONWebTokenAuthentication, )
+    authentication_classes = (JSONWebTokenAuthentication, TokenAuthentication)
     permission_classes = (IsAuthenticated, )
 
     def list(self, request):
@@ -24,7 +24,7 @@ class Hops(viewsets.ViewSet):
     """
     View to Retrieve all approved hops and Suggest new hops.
     """
-    authentication_classes = (JSONWebTokenAuthentication, )
+    authentication_classes = (JSONWebTokenAuthentication, TokenAuthentication)
     permission_classes = (IsAuthenticated, )
 
     def list(self, request):
