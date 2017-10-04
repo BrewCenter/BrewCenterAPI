@@ -1,3 +1,4 @@
+from django.conf import settings
 from rest_framework import viewsets, serializers as rf_serializers
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -18,5 +19,8 @@ class Styles(viewsets.ViewSet):
         Returns all the beer styles. Do not show suggested
         beer styles by default.
         """
-        serializer = rf_serializers.ListSerializer(models.Style.objects.all(), child=serializers.SimpleStyleSerializer())
+        serializer = rf_serializers.ListSerializer(
+            models.Style.objects.all() if request.auth is not None else models.Style.objects.all()[:settings.UNAUTHENTICATED_RESULTS_COUNT],
+            child=serializers.SimpleStyleSerializer()
+        )
         return Response(serializer.data)
