@@ -1,5 +1,6 @@
-# from .country import CountryCodeSerializer
-from .fermentable import FermentableTypeSerializer, SimpleFermentableSerializer
-from .hop import HopTypeSerializer, SimpleHopSerializer
-from .yeast import YeastTypeSerializer, SimpleYeastSerializer
-from .style import SimpleStyleSerializer
+
+from brew_data.serializers.fermentable import FermentableTypeSerializer, SimpleFermentableSerializer
+from brew_data.serializers.hop import HopTypeSerializer, SimpleHopSerializer
+from brew_data.serializers.yeast import YeastTypeSerializer, SimpleYeastSerializer
+from brew_data.serializers.style import SimpleStyleSerializer
+

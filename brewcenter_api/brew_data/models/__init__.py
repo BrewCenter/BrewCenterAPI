@@ -1,6 +1,9 @@
 """Import all models in this folder here"""
 
-from .fermentable import FermentableType, Fermentable
-from .hop import HopType, Hop
-from .yeast import YeastType, Yeast
-from .style import Style
+
+
+from brew_data.models.fermentable import FermentableType, Fermentable
+from brew_data.models.hop import HopType, Hop
+from brew_data.models.yeast import YeastType, Yeast
+from brew_data.models.style import Style
+

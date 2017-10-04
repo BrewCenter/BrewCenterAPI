@@ -1,22 +1,22 @@
 import itertools
 
+from iso3166 import countries_by_alpha3, countries_by_alpha2
+from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from iso3166 import countries_by_alpha2,countries_by_alpha3
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 
+from accounts.auth import TokenAuthentication
 
-
-class Countries(APIView):
+class Countries(viewsets.ViewSet):
     """
     View to retrieve all countries from the API
     """
-    authentication_classes = (JSONWebTokenAuthentication, )
+    authentication_classes = (JSONWebTokenAuthentication, TokenAuthentication)
     permission_classes = (IsAuthenticated, )
 
-    def get(self, request):
+    def list(self, request):
         """
         Returns all countries in the system.
         """
