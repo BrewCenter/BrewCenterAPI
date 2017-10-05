@@ -3,6 +3,7 @@ from django.test import TestCase
 from brew_data.models import CountryCode
 from brew_data.models import FermentableType, Fermentable
 
+
 class TestFactory():
     """Creates models and structures for testing"""
 
@@ -29,7 +30,7 @@ class TestFactory():
             is_mashed=True,
             notes="This is a test note field"
         )
-        
+
 
 class CountryCodeTestCase(TestCase):
     """Tests basic aspects of creating a country code"""
@@ -42,7 +43,7 @@ class CountryCodeTestCase(TestCase):
 
 class FermentableTestCase(TestCase):
     """Tests the Fermentable Model"""
-    
+
     def test_create_fermentable_type(self):
         """Tests that a fermentable type can be created and queried"""
         TestFactory.create_fermentable_type()
@@ -52,4 +53,3 @@ class FermentableTestCase(TestCase):
         """Tests basic fermentable creation"""
         TestFactory.create_fermentale()
         self.assertIsNotNone(Fermentable.objects.get(name="Test Fermentable"))
-

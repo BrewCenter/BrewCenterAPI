@@ -4,6 +4,7 @@ Extracts Fermentables from the database, transforms them, and builds a new db.
 
 from brew_data.data_miner.brew_target.utils import clean, convert_country
 
+
 class Fermentable:
     def __init__(self, data):
         self.name = data[0]
@@ -27,7 +28,8 @@ class Fermentable:
         self.name = '"' + self.name + '"'
         # convert boolean to integer for sqlite
         self.is_mashed = (1 if self.is_mashed == 'true' else 0)
-        # Sugar has a PPG of 46. Multiply the potential percent yield by 46 to get PPG of a grain
+        # Sugar has a PPG of 46. Multiply the potential percent yield by 46 to
+        # get PPG of a grain
         self.ppg = 46 * (self.potential / 100)
 
         self.country = convert_country(self.origin)
@@ -50,7 +52,8 @@ class Fermentable:
             self.notes = '"' + self.notes + '"'
 
     def get_keys():
-        return "name, type_id, country_id, ppg, lovibond, moisture, diastatic_power, protein, max_in_batch, is_mashed, notes" 
+        return ("name, type_id, country_id, ppg, lovibond, moisture, "
+                "diastatic_power, protein, max_in_batch, is_mashed, notes")
 
     def __str__(self):
         format_str = '{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}'
@@ -67,6 +70,7 @@ class Fermentable:
             self.is_mashed,
             self.notes
         )
+
 
 def get_fermentables(s, d):
     """
@@ -85,7 +89,7 @@ def get_fermentables(s, d):
         'diastatic_power FLOAT,'           \
         'protein FLOAT,'                   \
         'max_in_batch FLOAT,'              \
-        'is_mashed INT,'                    \
+        'is_mashed INT,'                   \
         'notes TEXT'                       \
         ');'
     )

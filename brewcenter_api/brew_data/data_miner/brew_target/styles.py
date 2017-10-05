@@ -1,5 +1,6 @@
 from brew_data.data_miner.brew_target.utils import clean
 
+
 class Style:
     def __init__(self, data):
         self.name = data[0]
@@ -23,23 +24,24 @@ class Style:
         self.category = '"' + self.category + '"'
 
     def get_keys():
-        return "name, type, category, og_min, og_max, fg_min, fg_max, ibu_min, ibu_max, srm_min, srm_max, abv_min, abv_max"
+        return ("name, type, category, og_min, og_max, fg_min, fg_max, "
+                "ibu_min, ibu_max, srm_min, srm_max, abv_min, abv_max")
 
     def __str__(self):
         return "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12}".format(
             self.name,
-            self.type, 
-            self.category, 
-            self.og_min, 
-            self.og_max, 
-            self.fg_min, 
-            self.fg_max, 
-            self.ibu_min, 
-            self.ibu_max, 
-            self.srm_min, 
-            self.srm_max, 
-            self.abv_min, 
-            self.abv_max
+            self.type,
+            self.category,
+            self.og_min,
+            self.og_max,
+            self.fg_min,
+            self.fg_max,
+            self.ibu_min,
+            self.ibu_max,
+            self.srm_min,
+            self.srm_max,
+            self.abv_min,
+            self.abv_max,
         )
 
 
