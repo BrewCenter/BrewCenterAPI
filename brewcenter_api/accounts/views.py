@@ -7,7 +7,6 @@ from rest_framework.views import APIView
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 
-
 class Tokens(APIView):
     """
     View to Create, Get, and Remove tokens. These tokens

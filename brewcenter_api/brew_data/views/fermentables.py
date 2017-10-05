@@ -7,6 +7,7 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from brew_data import models, serializers
 from accounts.auth import TokenAuthentication
 
+
 class FermentableTypes(viewsets.ViewSet):
     """
     View to Retrieve Fermentable ingredient Types.
@@ -23,6 +24,7 @@ class FermentableTypes(viewsets.ViewSet):
             child=serializers.FermentableTypeSerializer()
         )
         return Response(serializer.data)
+
 
 class Fermentables(viewsets.ViewSet):
     """

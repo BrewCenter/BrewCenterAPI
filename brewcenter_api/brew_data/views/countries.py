@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from brew_data import models, serializers
-from accounts.auth import TokenAuthentication 
+from accounts.auth import TokenAuthentication
 
 
 class Countries(viewsets.ViewSet):

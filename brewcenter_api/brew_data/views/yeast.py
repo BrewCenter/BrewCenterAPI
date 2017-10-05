@@ -7,6 +7,7 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from brew_data import models, serializers
 from accounts.auth import TokenAuthentication
 
+
 class YeastTypes(viewsets.ViewSet):
     """
     Methods to Retrieve and Suggest new Yeast Types.
@@ -23,6 +24,7 @@ class YeastTypes(viewsets.ViewSet):
             child=serializers.YeastTypeSerializer()
         )
         return Response(serializer.data)
+
 
 class Yeast(viewsets.ViewSet):
     """

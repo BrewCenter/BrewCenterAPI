@@ -4,6 +4,7 @@ Various functions for cleaning and transforming data.
 
 import pycountry
 
+
 def convert_country(country_name):
     """
     Converts a country name to a code.
@@ -21,7 +22,8 @@ def convert_country(country_name):
         c = '"' + c + '"'
     return c
 
+
 def clean(data):
     if "\"" in str(data):
-        data = data.replace("\"","\"\"")
+        data = data.replace("\"", "\"\"")
     return data

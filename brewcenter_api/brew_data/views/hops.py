@@ -7,6 +7,7 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from brew_data import models, serializers
 from accounts.auth import TokenAuthentication
 
+
 class HopTypes(viewsets.ViewSet):
     """
     View to Retrieve hop Types.
@@ -23,6 +24,7 @@ class HopTypes(viewsets.ViewSet):
             child=serializers.HopTypeSerializer()
         )
         return Response(serializer.data)
+
 
 class Hops(viewsets.ViewSet):
     """
