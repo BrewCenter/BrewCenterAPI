@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class YeastType(models.Model):
     """
     Defines a Yeast type. Examples include:
@@ -7,6 +8,7 @@ class YeastType(models.Model):
     - Lager
     """
     name = models.CharField(max_length=255)
+
     def __str__(self):
         return self.name
 

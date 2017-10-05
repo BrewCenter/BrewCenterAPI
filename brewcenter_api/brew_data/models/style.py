@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Style(models.Model):
     """
     Defines a beer style type. Examples include:

@@ -1,6 +1,7 @@
 from django.db import models
 from brew_data.models import CountryCode
 
+
 class FermentableType(models.Model):
     """
     Defines a fermentale type. Examples include:
@@ -24,8 +25,12 @@ class Fermentable(models.Model):
 
     # Model Fields
     name = models.CharField(max_length=255)
-    type = models.ForeignKey(FermentableType, related_name="fermentables_with_type")
-    country = models.ForeignKey(CountryCode, related_name="fermentables_from_country", null=True, blank=True)
+    type = models.ForeignKey(FermentableType,
+                             related_name="fermentables_with_type")
+    country = models.ForeignKey(CountryCode,
+                                related_name="fermentables_from_country",
+                                null=True,
+                                blank=True)
     ppg = models.FloatField(null=True, blank=True)
     lovibond = models.FloatField(null=True, blank=True)
     moisture = models.FloatField(null=True, blank=True)
@@ -42,15 +47,15 @@ class Fermentable(models.Model):
     def json(self):
         """return the fermentable object as JSON"""
         return "{{{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11}}}".format(
-                "name:" + self.name,
-                "type:" + self.type.name,
-                "country:" + self.country.code,
-                "ppg:" + self.ppg,
-                "lovibond:" + self.lovibond,
-                "moisture:" + self.moisture,
-                "diastatic_power:" + self.diastatic_power,
-                "protein:" + self.protein,
-                "max_in_batch:" + self.max_in_batch,
-                "is_mashed:" + self.is_mashed,
-                "notes:" + self.notes
-            )
+            "name:" + self.name,
+            "type:" + self.type.name,
+            "country:" + self.country.code,
+            "ppg:" + self.ppg,
+            "lovibond:" + self.lovibond,
+            "moisture:" + self.moisture,
+            "diastatic_power:" + self.diastatic_power,
+            "protein:" + self.protein,
+            "max_in_batch:" + self.max_in_batch,
+            "is_mashed:" + self.is_mashed,
+            "notes:" + self.notes
+        )
