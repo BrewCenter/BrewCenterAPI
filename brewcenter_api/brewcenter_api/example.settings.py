@@ -31,7 +31,10 @@ ALLOWED_HOSTS = []
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-    )
+    ),
+    # Exception Handler
+    # Tolerate Authorization exceptions to allow partial data return
+    'EXCEPTION_HANDLER': 'brewcenter_api.exceptionhandler.custom_exception_handler'
 }
 
 JWT_AUTH = {
@@ -43,6 +46,10 @@ REST_USE_JWT = True
 SITE_ID = 1
 APPEND_SLASH = False
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Allow unauthenticated results for testing and development
+ENABLE_UNAUTHENTICATED_RESULTS = True
+UNAUTHENTICATED_RESULTS_COUNT = 3
 
 # Application definition
 

@@ -2,7 +2,7 @@ from rest_framework import serializers
 from brew_data.models import HopType, Hop
 
 class HopTypeSerializer(serializers.ModelSerializer):
-    """Simple FermentableType Serializer"""
+    """Simple HopType Serializer"""
     class Meta:
         model = HopType
         fields = ('id', 'name')
