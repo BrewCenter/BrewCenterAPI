@@ -1,5 +1,6 @@
 from brew_data.data_miner.brew_target.utils import clean, convert_country
 
+
 class Hop:
     def __init__(self, data):
         self.name = data[0]
@@ -18,12 +19,12 @@ class Hop:
             self.notes = '""'
         else:
             self.notes = '"' + self.notes + '"'
-        
+
         # change countries to valid ones
         lookup = {
-            "England" : "UK",
-            "Czech Republic" : "CZ",
-            "Austria/Slovenia" : "AT"
+            "England": "UK",
+            "Czech Republic": "CZ",
+            "Austria/Slovenia": "AT"
         }
         if self.origin in lookup:
             self.origin = lookup[self.origin]
@@ -36,10 +37,10 @@ class Hop:
     def __str__(self):
         return "{0},{1},{2},{3},{4},{5}".format(
             self.name,
-            self.type_id, 
-            self.country_id, 
-            self.alpha_acids, 
-            self.beta_acids, 
+            self.type_id,
+            self.country_id,
+            self.alpha_acids,
+            self.beta_acids,
             self.notes
         )
 
