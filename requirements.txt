@@ -7,6 +7,7 @@ django-rest-auth==0.9.1
 djangorestframework==3.4.7
 djangorestframework-jwt==1.11.0
 idna==2.6
+iso3166==0.8
 oauthlib==2.0.4
 pycountry==16.11.27.1
 PyJWT==1.5.3
@@ -15,3 +16,4 @@ requests==2.18.4
 requests-oauthlib==0.8.0
 six==1.11.0
 urllib3==1.22
+wheel==0.24.0

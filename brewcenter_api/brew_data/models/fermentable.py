@@ -1,5 +1,6 @@
 from django.db import models
-from brew_data.models import CountryCode
+from brew_data.validators import country_code_validator
+
 
 class FermentableType(models.Model):
     """
@@ -25,7 +26,7 @@ class Fermentable(models.Model):
     # Model Fields
     name = models.CharField(max_length=255)
     type = models.ForeignKey(FermentableType, related_name="fermentables_with_type")
-    country = models.ForeignKey(CountryCode, related_name="fermentables_from_country", null=True, blank=True)
+    country = models.CharField(max_length=3,null=True, blank=True,validators=[country_code_validator])
     ppg = models.FloatField(null=True, blank=True)
     lovibond = models.FloatField(null=True, blank=True)
     moisture = models.FloatField(null=True, blank=True)

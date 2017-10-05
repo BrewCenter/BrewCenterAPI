@@ -1,5 +1,5 @@
 from django.db import models
-from brew_data.models import CountryCode
+from brew_data.validators import country_code_validator
 
 class HopType(models.Model):
     """
@@ -22,7 +22,7 @@ class Hop(models.Model):
     # Model Fields
     name = models.CharField(max_length=255)
     type = models.ForeignKey(HopType, related_name="hops_with_type")
-    country = models.ForeignKey(CountryCode, related_name="hops_from_country", null=True, blank=True)
+    country = models.CharField(max_length=3,null=True, blank=True,validators=[country_code_validator])
     alpha_acids = models.FloatField(null=True, blank=True)
     beta_acids = models.FloatField(null=True, blank=True)
     notes = models.TextField(null=True, blank=True)

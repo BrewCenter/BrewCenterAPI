@@ -1,11 +1,13 @@
-from rest_framework import viewsets, serializers as rf_serializers
+import itertools
+
+from iso3166 import countries_by_alpha3, countries_by_alpha2
+from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
-from brew_data import models, serializers
-from accounts.auth import TokenAuthentication 
 
+from accounts.auth import TokenAuthentication
 
 class Countries(viewsets.ViewSet):
     """
@@ -18,5 +20,5 @@ class Countries(viewsets.ViewSet):
         """
         Returns all countries in the system.
         """
-        serializer = rf_serializers.ListSerializer(models.CountryCode.objects.all(), child=serializers.CountryCodeSerializer())
-        return Response(serializer.data)
+        all_countries = [{'code': i} for i in itertools.chain(countries_by_alpha3,countries_by_alpha2)]
+        return Response(all_countries)
