@@ -1,3 +1,4 @@
+from django.conf import settings
 from rest_framework import viewsets, serializers as rf_serializers
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -19,9 +20,9 @@ class FermentableTypes(viewsets.ViewSet):
         Returns all fermentable types in the system
         """
         serializer = rf_serializers.ListSerializer(
-            models.FermentableType.objects.all(),
-            child=serializers.FermentableTypeSerializer())
-
+            models.FermentableType.objects.all() if request.auth is not None else models.FermentableType.objects.all()[:settings.UNAUTHENTICATED_RESULTS_COUNT],
+            child=serializers.FermentableTypeSerializer()
+        )
         return Response(serializer.data)
 
 
@@ -38,7 +39,7 @@ class Fermentables(viewsets.ViewSet):
         Returns all fermentables that are approved in the system by default.
         """
         serializer = rf_serializers.ListSerializer(
-            models.Fermentable.objects.all(),
-            child=serializers.SimpleFermentableSerializer())
-
+            models.Fermentable.objects.all() if request.auth is not None else models.Fermentable.objects.all()[:settings.UNAUTHENTICATED_RESULTS_COUNT],
+            child=serializers.SimpleFermentableSerializer()
+        )
         return Response(serializer.data)
