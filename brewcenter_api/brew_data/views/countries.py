@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from brew_data import models, serializers
-from accounts.auth import TokenAuthentication 
+from accounts.auth import TokenAuthentication
 
 
 class Countries(viewsets.ViewSet):
@@ -18,5 +18,8 @@ class Countries(viewsets.ViewSet):
         """
         Returns all countries in the system.
         """
-        serializer = rf_serializers.ListSerializer(models.CountryCode.objects.all(), child=serializers.CountryCodeSerializer())
+        serializer = rf_serializers.ListSerializer(
+            models.CountryCode.objects.all(),
+            child=serializers.CountryCodeSerializer())
+
         return Response(serializer.data)

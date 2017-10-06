@@ -6,6 +6,7 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from brew_data import models, serializers
 from accounts.auth import TokenAuthentication
 
+
 class Styles(viewsets.ViewSet):
     """
     Methods to Retrieve and Suggest Beer Styles.
@@ -18,5 +19,8 @@ class Styles(viewsets.ViewSet):
         Returns all the beer styles. Do not show suggested
         beer styles by default.
         """
-        serializer = rf_serializers.ListSerializer(models.Style.objects.all(), child=serializers.SimpleStyleSerializer())
+        serializer = rf_serializers.ListSerializer(
+            models.Style.objects.all(),
+            child=serializers.SimpleStyleSerializer())
+
         return Response(serializer.data)

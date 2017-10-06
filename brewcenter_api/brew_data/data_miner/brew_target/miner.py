@@ -7,6 +7,7 @@ from brew_data.data_miner.brew_target.hops import Hop, get_hops
 from brew_data.data_miner.brew_target.yeast import Yeast, get_yeast
 from brew_data.data_miner.brew_target.styles import Style, get_styles
 
+
 def mine(stdout):
     DIR = os.path.dirname(os.path.abspath(__file__))
     source = sql.connect(os.path.join(DIR, 'brewtarget.sqlite'))
@@ -56,5 +57,6 @@ def mine(stdout):
     dest.commit()
     dest.close()
 
+
 if __name__ == '__main__':
-    mine();
+    mine()

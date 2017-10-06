@@ -9,7 +9,7 @@ from rest_framework import routers
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'styles', views.Styles, 'styles')
 router.register(r'countries', views.Countries, 'countries')
-router.register(r'ingredients/fermentables', views.Fermentables, 'fermentables')
+router.register(r'ingredients/fermentables',views.Fermentables, 'fermentables')
 router.register(r'ingredients/fermentables/types', views.FermentableTypes, 'fermentable_types')
 router.register(r'ingredients/hops', views.Hops, 'hops')
 router.register(r'ingredients/hops/types', views.HopTypes, 'hop_types')

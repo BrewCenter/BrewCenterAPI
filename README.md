@@ -1,4 +1,5 @@
 # BrewCenterAPI
+An open source API for sharing and crowd-sourcing brewing ingredient data. Grains, Sugars, Adjusts, Beer Styles, Hops, and Yeast data will all be made available for free. We'll provide easy-to-use interfaces for you to make suggestions to existing data or add new data to our API. Together we can make the best brewing database on the web!
 
 ## Installation
 Install the requirements using pip.

@@ -1,5 +1,6 @@
 from brew_data.data_miner.brew_target.utils import clean
 
+
 class Yeast:
     def __init__(self, data):
         self.name = data[0]
@@ -26,22 +27,23 @@ class Yeast:
 
         self.is_liquid = 0
         if self.form == "Liquid":
-            self.is_liquid = 1  
+            self.is_liquid = 1
 
     def get_keys():
-        return "name, type_id, is_liquid, lab, min_temp, max_temp, flocculation, attenuation, notes"
+        return ("name, type_id, is_liquid, lab, min_temp, max_temp, "
+                "flocculation, attenuation, notes")
 
     def __str__(self):
         return "{0},{1},{2},{3},{4},{5},{6},{7},{8}".format(
             self.name,
-            self.type_id, 
-            self.is_liquid, 
-            self.lab, 
-            self.min_temp, 
+            self.type_id,
+            self.is_liquid,
+            self.lab,
+            self.min_temp,
             self.max_temp,
             self.flocculation,
             self.attenuation,
-            self.notes
+            self.notes,
         )
 
 
