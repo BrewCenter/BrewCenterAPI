@@ -12,7 +12,7 @@ class TestFactory():
     def create_fermentable_type():
         FermentableType.objects.create(name="Test Grain", abbreviation="TG")
 
-    def create_fermentale():
+    def create_fermentable():
         TestFactory.create_country_code()
         TestFactory.create_fermentable_type()
         country_code_id = CountryCode.objects.get(code="T1").id
@@ -50,6 +50,6 @@ class FermentableTestCase(TestCase):
 
     def test_create_fermentable(self):
         """Tests basic fermentable creation"""
-        TestFactory.create_fermentale()
+        TestFactory.create_fermentable()
         self.assertIsNotNone(Fermentable.objects.get(name="Test Fermentable"))
 
