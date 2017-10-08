@@ -1,12 +1,12 @@
 """
 Define the brew_data module URLs here and point them to their respective views.
 """
-from django.conf.urls import url, include
 from brew_data import views
 
 from rest_framework import routers
 
 router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'all', views.All, 'all')
 router.register(r'styles', views.Styles, 'styles')
 router.register(r'countries', views.Countries, 'countries')
 router.register(r'ingredients/fermentables',views.Fermentables, 'fermentables')

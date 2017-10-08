@@ -75,7 +75,8 @@ class FermentableTestCase(TestCase):
     def test_create_fermentable(self):
         """Tests basic fermentable creation"""
         TestFactory.create_fermentable()
-
+        self.assertIsNotNone(Fermentable.objects.get(name="Test Fermentable"))
+        
 
 class HopTestCase(TestCase):
     """Test the Hop and HopType Models"""
@@ -118,3 +119,4 @@ class HopTestCase(TestCase):
         """TestFactory.create_hop should create new hop object"""
         new_hop = Hop.objects.get(name='Test Hop Name')
         self.assertEqual(self.hop, new_hop)
+
