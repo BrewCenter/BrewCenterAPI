@@ -11,14 +11,16 @@ class TestFactory():
         CountryCode.objects.create(code="T1")
 
     def create_fermentable_type():
-        FermentableType.objects.create(name="Test Grain", abbreviation="TG")
+        new_ferm_type = FermentableType.objects.create(name="Test Grain",
+                                                       abbreviation="TG")
+        return new_ferm_type
 
     def create_fermentable():
         TestFactory.create_country_code()
         TestFactory.create_fermentable_type()
         country_code_id = CountryCode.objects.get(code="T1").id
         fermentable_type_id = FermentableType.objects.get(name="Test Grain").id
-        Fermentable.objects.create(
+        new_fermentable = Fermentable.objects.create(
             name="Test Fermentable",
             type_id=fermentable_type_id,
             country_id=country_code_id,
@@ -30,6 +32,8 @@ class TestFactory():
             is_mashed=True,
             notes="This is a test note field"
         )
+
+        return new_fermentable
 
 
 class CountryCodeTestCase(TestCase):
@@ -53,3 +57,32 @@ class FermentableTestCase(TestCase):
         """Tests basic fermentable creation"""
         TestFactory.create_fermentable()
         self.assertIsNotNone(Fermentable.objects.get(name="Test Fermentable"))
+
+    def test_fermentable_type_str_method(self):
+        """Tests str(FermentableType) returns expected value"""
+        test_fermentable_type = TestFactory.create_fermentable_type()
+        self.assertEqual(
+            str(test_fermentable_type),
+            test_fermentable_type.name
+        )
+
+    def test_fermentable_str_method(self):
+        """Tests str(Fermentable) returns expected value"""
+        test_fermentable = TestFactory.create_fermentable()
+        self.assertEqual(
+            str(test_fermentable),
+            test_fermentable.name
+        )
+
+    def test_fermentable_json_method(self):
+        """
+        Tests Fermentable.json method to ensure it returns the
+        expected value
+        """
+        test_fermentable = TestFactory.create_fermentable()
+        self.assertEqual(test_fermentable.name, "Test Fermentable")
+
+        test_json = test_fermentable.json()
+        print(test_json)
+
+        self.assertEqual(expected_json, test_json)
