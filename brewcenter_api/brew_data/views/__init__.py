@@ -1,3 +1,4 @@
+from brew_data.views.all import All
 from brew_data.views.styles import Styles
 from brew_data.views.countries import Countries
 from brew_data.views.fermentables import FermentableTypes, Fermentables

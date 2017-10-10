@@ -3,12 +3,12 @@ chardet==3.0.4
 coreapi==2.3.1
 coreschema==0.0.4
 defusedxml==0.5.0
-Django==1.10
 django-allauth==0.33.0
 django-rest-auth==0.9.1
 django-rest-swagger==2.1.2
-djangorestframework==3.6.4
+Django==1.10
 djangorestframework-jwt==1.11.0
+djangorestframework==3.6.4
 idna==2.6
 itypes==1.1.0
 Jinja2==2.9.6
@@ -19,8 +19,8 @@ pkg-resources==0.0.0
 pycountry==16.11.27.1
 PyJWT==1.5.3
 python3-openid==3.1.0
-requests==2.18.4
 requests-oauthlib==0.8.0
+requests==2.18.4
 simplejson==3.11.1
 six==1.11.0
 uritemplate==3.0.0

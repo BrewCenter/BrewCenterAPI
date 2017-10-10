@@ -95,3 +95,6 @@ brewenv/
 
 # Rope project settings
 .ropeproject
+
+# PyCharm project settings
+.idea
