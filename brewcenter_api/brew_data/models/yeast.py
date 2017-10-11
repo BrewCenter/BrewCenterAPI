@@ -1,4 +1,7 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
+
+from brew_data.models import Suggestion
 
 
 class YeastType(models.Model):
@@ -8,6 +11,7 @@ class YeastType(models.Model):
     - Lager
     """
     name = models.CharField(max_length=255)
+    suggestion = GenericRelation(Suggestion)
 
     def __str__(self):
         return self.name
@@ -30,6 +34,7 @@ class Yeast(models.Model):
     flocculation = models.CharField(max_length=255, null=True, blank=True)
     attenuation = models.FloatField(null=True, blank=True)
     notes = models.TextField(null=True, blank=True)
+    suggestion = GenericRelation(Suggestion)
 
     def __str__(self):
         return self.name
