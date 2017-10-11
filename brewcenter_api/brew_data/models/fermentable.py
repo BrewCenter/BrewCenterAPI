@@ -1,6 +1,8 @@
 from django.db import models
 from brew_data.models import CountryCode
 
+import pdb
+
 
 class FermentableType(models.Model):
     """
@@ -46,16 +48,30 @@ class Fermentable(models.Model):
 
     def json(self):
         """return the fermentable object as JSON"""
-        return "{{{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11}}}".format(
-            "name:" + self.name,
-            "type:" + self.type.name,
-            "country:" + self.country.code,
-            "ppg:" + self.ppg,
-            "lovibond:" + self.lovibond,
-            "moisture:" + self.moisture,
-            "diastatic_power:" + self.diastatic_power,
-            "protein:" + self.protein,
-            "max_in_batch:" + self.max_in_batch,
-            "is_mashed:" + self.is_mashed,
-            "notes:" + self.notes
-        )
+        # return "{{{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11}}}".format(
+        #     "name:" + self.name,
+        #     "type:" + self.type.name,
+        #     "country:" + self.country.code,
+        #     "ppg:" + self.ppg,
+        #     "lovibond:" + self.lovibond,
+        #     "moisture:" + self.moisture,
+        #     "diastatic_power:" + self.diastatic_power,
+        #     "protein:" + self.protein,
+        #     "max_in_batch:" + self.max_in_batch,
+        #     "is_mashed:" + self.is_mashed,
+        #     "notes:" + self.notes
+        # )
+        json_data = {}
+        pdb.set_trace()
+        for attr, value in self.__dict__.items():
+
+            if attr.startswith('_') or attr == 'id':
+                pass
+            elif attr == 'type_id':
+                json_data['type'] = self.type.name
+            elif attr == 'country_id':
+                json_data['country'] = self.country.name
+            else:
+                json_data[attr] = value
+
+        print(str(json_data))
