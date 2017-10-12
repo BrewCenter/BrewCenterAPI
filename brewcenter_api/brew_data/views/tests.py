@@ -1,13 +1,9 @@
 from django.test import TestCase
-from django.urls import reverse
-from brew_data.views import Yeast, YeastTypes
-from rest_framework.test import APIRequestFactory, APIClient, RequestsClient, force_authenticate
-from rest_framework.authtoken.models import Token
+from rest_framework.test import APIClient
 
 
 class YeastTestCase(TestCase):
     def setUp(self):
-        self.factory = APIRequestFactory()
         self.client = APIClient()
 
     def test_yeast_get(self):
