@@ -45,18 +45,13 @@ class CountryCodeTestCase(TestCase):
         self.assertIsNotNone(CountryCode.objects.get(code="T1"))
 
 
-class FermentableTestCase(TestCase):
-    """Tests the Fermentable Model"""
+class FermenentableTypeTestCase(TestCase):
+    """Tests the Fermentable Type Model"""
 
     def test_create_fermentable_type(self):
         """Tests that a fermentable type can be created and queried"""
         TestFactory.create_fermentable_type()
         self.assertIsNotNone(FermentableType.objects.get(name="Test Grain"))
-
-    def test_create_fermentable(self):
-        """Tests basic fermentable creation"""
-        TestFactory.create_fermentable()
-        self.assertIsNotNone(Fermentable.objects.get(name="Test Fermentable"))
 
     def test_fermentable_type_str_method(self):
         """Tests str(FermentableType) returns expected value"""
@@ -66,6 +61,15 @@ class FermentableTestCase(TestCase):
             test_fermentable_type.name
         )
 
+
+class FermentableTestCase(TestCase):
+    """Tests the Fermentable Model"""
+
+    def test_create_fermentable(self):
+        """Tests basic fermentable creation"""
+        TestFactory.create_fermentable()
+        self.assertIsNotNone(Fermentable.objects.get(name="Test Fermentable"))
+
     def test_fermentable_str_method(self):
         """Tests str(Fermentable) returns expected value"""
         test_fermentable = TestFactory.create_fermentable()
@@ -73,16 +77,3 @@ class FermentableTestCase(TestCase):
             str(test_fermentable),
             test_fermentable.name
         )
-
-    def test_fermentable_json_method(self):
-        """
-        Tests Fermentable.json method to ensure it returns the
-        expected value
-        """
-        test_fermentable = TestFactory.create_fermentable()
-        self.assertEqual(test_fermentable.name, "Test Fermentable")
-
-        test_json = test_fermentable.json()
-        print(test_json)
-
-        self.assertEqual(expected_json, test_json)
