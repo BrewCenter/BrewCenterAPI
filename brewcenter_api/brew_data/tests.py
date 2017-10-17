@@ -13,14 +13,16 @@ class TestFactory():
         return country
 
     def create_fermentable_type():
-        FermentableType.objects.create(name="Test Grain", abbreviation="TG")
+        new_ferm_type = FermentableType.objects.create(name="Test Grain",
+                                                       abbreviation="TG")
+        return new_ferm_type
 
     def create_fermentable():
         TestFactory.create_country_code()
         TestFactory.create_fermentable_type()
         country_code_id = CountryCode.objects.get(code="T1").id
         fermentable_type_id = FermentableType.objects.get(name="Test Grain").id
-        Fermentable.objects.create(
+        new_fermentable = Fermentable.objects.create(
             name="Test Fermentable",
             type_id=fermentable_type_id,
             country_id=country_code_id,
@@ -32,6 +34,7 @@ class TestFactory():
             is_mashed=True,
             notes="This is a test note field"
         )
+        return new_fermentable
 
     def create_hop_type(name):
         """Create HopType object for testing"""
@@ -54,7 +57,6 @@ class TestFactory():
 
         return hop
 
-
 class CountryCodeTestCase(TestCase):
     """Tests basic aspects of creating a country code"""
 
@@ -64,19 +66,38 @@ class CountryCodeTestCase(TestCase):
         self.assertIsNotNone(CountryCode.objects.get(code="T1"))
 
 
-class FermentableTestCase(TestCase):
-    """Tests the Fermentable Model"""
+class FermenentableTypeTestCase(TestCase):
+    """Tests the Fermentable Type Model"""
 
     def test_create_fermentable_type(self):
         """Tests that a fermentable type can be created and queried"""
         TestFactory.create_fermentable_type()
         self.assertIsNotNone(FermentableType.objects.get(name="Test Grain"))
 
+    def test_fermentable_type_str_method(self):
+        """Tests str(FermentableType) returns expected value"""
+        test_fermentable_type = TestFactory.create_fermentable_type()
+        self.assertEqual(
+            str(test_fermentable_type),
+            test_fermentable_type.name
+        )
+
+
+class FermentableTestCase(TestCase):
+    """Tests the Fermentable Model"""
+
     def test_create_fermentable(self):
         """Tests basic fermentable creation"""
         TestFactory.create_fermentable()
         self.assertIsNotNone(Fermentable.objects.get(name="Test Fermentable"))
-        
+
+    def test_fermentable_str_method(self):
+        """Tests str(Fermentable) returns expected value"""
+        test_fermentable = TestFactory.create_fermentable()
+        self.assertEqual(
+            str(test_fermentable),
+            test_fermentable.name
+        )
 
 class HopTestCase(TestCase):
     """Test the Hop and HopType Models"""
@@ -119,4 +140,3 @@ class HopTestCase(TestCase):
         """TestFactory.create_hop should create new hop object"""
         new_hop = Hop.objects.get(name='Test Hop Name')
         self.assertEqual(self.hop, new_hop)
-
