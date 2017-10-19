@@ -7,6 +7,8 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from brew_data import models, serializers
 from accounts.auth import TokenAuthentication
 
+import pycountry
+
 
 class Countries(viewsets.ViewSet):
     """
@@ -19,8 +21,13 @@ class Countries(viewsets.ViewSet):
         """
         Returns all countries in the system.
         """
+
+        # get country codes from pycountry.  place the pieces we want into a dict
+        country_codes = [{"id": ind + 1, "alpha_2" : country.alpha_2, "alpha_3": country.alpha_3} for ind, country in enumerate(list(pycountry.countries))]
+
         serializer = rf_serializers.ListSerializer(
-            models.CountryCode.objects.all() if request.auth is not None else models.CountryCode.objects.all()[:settings.UNAUTHENTICATED_RESULTS_COUNT],
+            country_codes if request.auth is not None else country_codes[:settings.UNAUTHENTICATED_RESULTS_COUNT],
             child=serializers.CountryCodeSerializer()
         )
+
         return Response(serializer.data)
