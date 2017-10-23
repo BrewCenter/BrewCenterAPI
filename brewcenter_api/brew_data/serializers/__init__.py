@@ -3,3 +3,4 @@ from brew_data.serializers.fermentable import FermentableTypeSerializer, SimpleF
 from brew_data.serializers.hop import HopTypeSerializer, SimpleHopSerializer
 from brew_data.serializers.yeast import YeastTypeSerializer, SimpleYeastSerializer
 from brew_data.serializers.style import SimpleStyleSerializer
+from .suggestion import SimpleSuggestionSerializer
