@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from brew_data.models import CountryCode
-from brew_data.models import FermentableType, Fermentable
+from brew_data.models import FermentableType, Fermentable, FermentableInstance
 from brew_data.models import Hop, HopType
 
 
@@ -26,14 +26,18 @@ class TestFactory():
             name="Test Fermentable",
             type_id=fermentable_type_id,
             country_id=country_code_id,
+            notes="This is a test.")
+        
+        instance = FermentableInstance.objects.create(
+            fermentable=new_fermentable,
             ppg=38.4,
-            lovibond=20.4,
-            moisture=4.7,
-            protein=10.8,
-            max_in_batch=50,
-            is_mashed=True,
-            notes="This is a test note field"
-        )
+            color=20.4,
+            color_units='L',
+            moisture_percent=4.7,
+            protein_percent=10.8,
+            notes="This is a test",
+            is_active=True)
+
         return new_fermentable
 
     def create_hop_type(name):

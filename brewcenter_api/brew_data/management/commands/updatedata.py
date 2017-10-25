@@ -6,7 +6,7 @@ import sqlite3 as sql
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
-from brew_data.models import CountryCode, FermentableType, Fermentable, HopType, Hop, YeastType, Yeast, Style
+from brew_data.models import CountryCode, FermentableType, Fermentable, FermentableInstance, HopType, Hop, YeastType, Yeast, Style
 import brew_data.data_miner.brew_target.miner as brew_target_miner
 
 class Command(BaseCommand):
@@ -41,21 +41,23 @@ class Command(BaseCommand):
         n = 0
         while cur:
             # check for collisions
-            if Fermentable.objects.filter(name=cur[0]).count() == 0:
-                Fermentable.objects.create(
-                    name=cur[0],
-                    type_id=cur[1],
-                    country_id=cur[2],
-                    ppg=cur[3],
-                    lovibond=cur[4],
-                    moisture=cur[5],
-                    diastatic_power=cur[6],
-                    protein=cur[7],
-                    max_in_batch=cur[8],
-                    is_mashed=cur[9],
-                    notes=cur[10]
-                )
+            fermentable = Fermentable.objects.get_or_create(
+                name=cur[0],
+                type_id=cur[1],
+                country_id=cur[2],
+                notes=cur[3])[0]
 
+
+            FermentableInstance.objects.get_or_create(
+                fermentable_id=fermentable.id,
+                ppg=cur[4],
+                color=cur[5],
+                color_units='L',
+                moisture_percent=cur[6],
+                diastatic_power_lintner=cur[7],
+                protein_percent=cur[8],
+                is_active=True)
+                
             n += 1
             cur = s.fetchone()
         self.stdout.write("Updated db with {0} Fermentables".format(n))

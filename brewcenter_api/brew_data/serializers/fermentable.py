@@ -31,7 +31,7 @@ class FermentableInstanceSerializer(serializers.ModelSerializer):
 class FermentableSerializer(serializers.ModelSerializer):
     """A simple serializer for fermentables"""
     type = FermentableTypeSerializer()
-    instances = serializers.ListSerializer(child=serializers.FermentableInstanceSerializer())
+    instances = serializers.ListSerializer(child=FermentableInstanceSerializer())
 
     class Meta:
         model = Fermentable

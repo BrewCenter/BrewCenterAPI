@@ -40,6 +40,6 @@ class Fermentables(viewsets.ViewSet):
         """
         serializer = rf_serializers.ListSerializer(
             models.Fermentable.objects.all() if request.auth is not None else models.Fermentable.objects.all()[:settings.UNAUTHENTICATED_RESULTS_COUNT],
-            child=serializers.SimpleFermentableSerializer()
+            child=serializers.FermentableSerializer()
         )
         return Response(serializer.data)

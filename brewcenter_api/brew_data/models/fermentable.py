@@ -35,7 +35,7 @@ class Fermentable(models.Model):
     def __str__(self):
         return self.name
 
-class FermentableInstance(model.Model):
+class FermentableInstance(models.Model):
     """
     A fermentable instance is a specific instance of a fermentable from a
     specific year. If a fermentable is not dependent on a year, the year
@@ -49,7 +49,7 @@ class FermentableInstance(model.Model):
 
     fermentable = models.ForeignKey(Fermentable, related_name="instances")
 
-    year = models.IntegerField(max_length=4, choices=YEAR_CHOICES, null=True, blank=True)
+    year = models.IntegerField(choices=YEAR_CHOICES, null=True, blank=True)
     color = models.FloatField(null=True, blank=True)
     color_units = models.TextField(choices=[('L','L'),('SRM','SRM')], max_length=3, null=True, blank=True)
     ppg = models.FloatField(null=True, blank=True)
@@ -61,3 +61,4 @@ class FermentableInstance(model.Model):
     soluble_protein_percent = models.FloatField(null=True, blank=True)
     nitrogen_percent = models.FloatField(null=True, blank=True)
     is_active = models.BooleanField(default=False)
+    notes=models.TextField(null=True, blank=True)
