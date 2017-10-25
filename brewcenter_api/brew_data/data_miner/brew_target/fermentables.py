@@ -52,8 +52,8 @@ class Fermentable:
             self.notes = '"' + self.notes + '"'
 
     def get_keys():
-        return ("name, type_id, country_id, ppg, lovibond, moisture, "
-                "diastatic_power, protein, max_in_batch, is_mashed, notes")
+        return ("name, type_id, country_id, notes, ppg, lovibond, moisture, "
+                "diastatic_power, protein, max_in_batch, is_mashed")
 
     def __str__(self):
         format_str = '{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}'
@@ -61,6 +61,7 @@ class Fermentable:
             self.name,
             self.type_id,
             self.country_id,
+            self.notes,
             self.ppg,
             self.lovibond,
             self.moisture,
@@ -68,7 +69,6 @@ class Fermentable:
             self.protein,
             self.max_in_batch,
             self.is_mashed,
-            self.notes
         )
 
 
