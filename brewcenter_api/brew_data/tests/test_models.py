@@ -3,7 +3,7 @@ from django.test import TestCase
 from brew_data.models import CountryCode
 from brew_data.models import FermentableType, Fermentable, FermentableInstance
 from brew_data.models import Hop, HopType
-
+from brew_data.models import Yeast, YeastType
 
 class TestFactory():
     """Creates models and structures for testing"""
@@ -60,6 +60,26 @@ class TestFactory():
         )
 
         return hop
+    
+    def create_yeast_type(self):
+        yeast_type = YeastType.objects.create(
+            name = 'Ale'
+        )
+        
+        return yeast_type
+        
+    def create_yeast(self, yeast_type):
+        yeast_type = self.create_yeast_type()
+        yeast = Yeast.objects.create(
+            name = 'Brewer\'s Yeast',
+            type = yeast_type,
+            is_liquid = False,
+            lab = 'A',
+            min_temp=50,
+            max_temp=200
+        )
+        
+        return yeast
 
 class CountryCodeTestCase(TestCase):
     """Tests basic aspects of creating a country code"""
@@ -144,3 +164,60 @@ class HopTestCase(TestCase):
         """TestFactory.create_hop should create new hop object"""
         new_hop = Hop.objects.get(name='Test Hop Name')
         self.assertEqual(self.hop, new_hop)
+        
+class YeastTypeTestCase(TestCase):
+    """Test the YeastType Model"""
+    
+    def setUp(self):
+        """Create instance for testing"""
+        
+        tf = TestFactory()
+        
+        self.yeasttype = tf.create_yeast_type()
+        
+    def test_create_yeast_type(self):
+        self.assertIsNotNone(self.yeasttype)
+        
+    def test_yeast_type_str_method(self):
+        self.assertEqual(self.yeasttype.name, str(self.yeasttype))
+        
+    def tearDown(self):
+        del self.yeasttype
+
+class YeastTestCase(TestCase):
+    """Test the Yeast Model"""
+    
+    def setUp(self):
+        """Create instance for testing"""
+        tf = TestFactory()
+        
+        self.yeast_type = tf.create_yeast_type()
+        self.yeast = tf.create_yeast(self.yeast_type)
+        
+    def test_create_yeast(self):
+        """Test yeast creation"""
+        self.assertIsNotNone(self.yeast)
+        
+    def test_yeast_str_method(self):
+        """Test str method of Yeast"""
+        self.assertEqual(self.yeast.name, str(self.yeast))
+        
+    def test_yeast_min_temp_attribute(self):
+        """Test min_temp attribute of Yeast"""
+        self.assertEqual(self.yeast.min_temp, 50)
+        
+    def test_yeast_max_temp_attribute(self):
+        """Test max temp attribute of Yeast"""
+        self.assertEqual(self.yeast.max_temp, 200)
+        
+    def test_yeast_lab_attribute(self):
+        """Test lab attribute of Yeast"""
+        self.assertEqual(self.yeast.lab, 'A')
+        
+    def test_yeast_is_liquid_attribute(self):
+        """Test is_liquid attribute of Yeast"""
+        self.assertEqual(self.yeast.is_liquid, False)
+        
+    def test_yeast_type_attribute(self):
+        """Test type attribute of Yeast"""
+        self.assertEqual(self.yeast.type.name, 'Ale')
