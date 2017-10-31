@@ -4,7 +4,7 @@ brewcenter_api/brewcenter_api/settings.py
 brewcenter_api/db.sqlite3
 brewcenter_api/static
 
-
+*.sqlite
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -10,7 +10,16 @@ This data set will largely be crowdsourced, with some initial seed data inserted
 ### How does it work?
 The BrewCenter API is a django rest framework application. We store all of our data in a SQL-based database, and make it available via RESTful endpoints which return JSON data.
 
+## Contributing
+Any amount of contribution is welcomed and encouraged. For now, it's just me reviewing PRs. I'd love to get
+more people on board, form a review team, and do some really cool stuff. We do have a slack channel for development
+support. If you would like to join, please send me an email (see my profile).
+
+I try to review PRs at least within 2 days, if not by the end of the same night.
+
 ## Installation
+First, download the latest stable release of Python 3.
+
 Install the requirements using pip.
 ```
 pip install -r requirements.txt
