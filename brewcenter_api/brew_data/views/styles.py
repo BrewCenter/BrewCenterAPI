@@ -20,8 +20,12 @@ class Styles(viewsets.ViewSet):
         Returns all the beer styles. Do not show suggested
         beer styles by default.
         """
+        styles = models.Style.objects.all()
+        if request.auth is None:
+            styles = styles[:settings.UNAUTHENTICATED_RESULTS_COUNT]
+
         serializer = rf_serializers.ListSerializer(
-            models.Style.objects.all() if request.auth is not None else models.Style.objects.all()[:settings.UNAUTHENTICATED_RESULTS_COUNT],
+            styles,
             child=serializers.SimpleStyleSerializer()
         )
         return Response(serializer.data)

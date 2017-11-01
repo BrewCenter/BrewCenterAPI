@@ -48,7 +48,7 @@ class FermentableInstance(models.Model):
     for r in range(2000, (datetime.datetime.now().year+1)):
         YEAR_CHOICES.append((r,r))
 
-    fermentable = models.ForeignKey(Fermentable, related_name="instances")
+    fermentable = models.ForeignKey(Fermentable, related_name="instances", null=True, blank=True)
 
     year = models.IntegerField(choices=YEAR_CHOICES, null=True, blank=True)
     color = models.FloatField(null=True, blank=True)
@@ -61,5 +61,5 @@ class FermentableInstance(models.Model):
     protein_percent = models.FloatField(null=True, blank=True)
     soluble_protein_percent = models.FloatField(null=True, blank=True)
     nitrogen_percent = models.FloatField(null=True, blank=True)
-    is_active = models.BooleanField(default=False)
     notes=models.TextField(null=True, blank=True)
+    is_active = models.BooleanField(default=False)

@@ -17,16 +17,16 @@ class FermentableTypes(viewsets.ViewSet):
     """
     authentication_classes = (JSONWebTokenAuthentication, TokenAuthentication)
 
-    def get_permissions(self):
-        """Define custom permissions for different methods"""
+    # def get_permissions(self):
+    #     """Define custom permissions for different methods"""
 
-        # at minimum require users to be authenticated
-        self.permission_classes = [IsAuthenticated]
-        # for PUT requests require users to be admins
-        if self.request.method == 'PUT':
-            self.permission_classes.append(IsAdminUser)
+    #     # at minimum require users to be authenticated
+    #     self.permission_classes = [IsAuthenticated]
+    #     # for PUT requests require users to be admins
+    #     if self.request.method == 'PUT':
+    #         self.permission_classes.append(IsAdminUser)
 
-        return super(viewsets.ViewSet, self).get_permissions()
+    #     return super(viewsets.ViewSet, self).get_permissions()
 
     def list(self, request):
         """
@@ -81,20 +81,133 @@ class FermentableTypes(viewsets.ViewSet):
         else:
             return Response(serializer.errors)
 
+class FermentableInstances(viewsets.ViewSet):
+    """
+    View to retrieve/update fermentable instances.
+    """
+    authentication_classes = (JSONWebTokenAuthentication, TokenAuthentication)
+
+    def get_permissions(self):
+        """Define custom permissions for different methods"""
+
+        # at minimum require users to be authenticated
+        self.permission_classes = [IsAuthenticated]
+        # for PUT requests require users to be admins
+        if self.request.method == 'PUT':
+            self.permission_classes.append(IsAdminUser)
+
+        return super(viewsets.ViewSet, self).get_permissions()
+
+    def create(self, request):
+        """
+        Create a new suggestion for a fermentable instance.
+        """
+        serializer = serializers.FermentableInstanceSuggestion(data=request.data)
+
+        if serializer.is_valid():
+            suggestion = serializer.save()
+            suggestion = models.Suggestion.objects.get(id=suggestion.id)
+
+            new_instance = models.FermentableInstance.objects.get(id=suggestion.suggested_object_id)
+            new_instance_data = serializers.FermentableInstance(new_instance).data
+
+            data = {
+                "fermentable_id": new_instance.fermentable_id,
+                "old_instance_id": suggestion.replaced_object_id,
+                "new_instance": new_instance_data
+            }
+
+            return Response(data)
+        else:
+            return Response(serializer.errors)
+
+    def update(self, request, pk=None):
+        """Allows admins to update specific fermentable instance objects."""
+        instance = get_object_or_404(models.FermentableInstance, pk=pk)
+
+        serializer = serializers.FermentableInstance(data=request.data)
+
+        if serializer.is_valid():
+            instance = serializer.save()
+
+            if request.data['is_active'] is not None:
+                instance.is_active = request.data['is_active']
+                instance.save()
+
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors)
+
 class Fermentables(viewsets.ViewSet):
     """
     View to Retrieve all approved fermentables and Suggest new
     fermentables.
     """
     authentication_classes = (JSONWebTokenAuthentication, TokenAuthentication)
-    permission_classes = (IsAuthenticated, )
+
+    def get_permissions(self):
+        """Define custom permissions for different methods"""
+
+        # at minimum require users to be authenticated
+        self.permission_classes = [IsAuthenticated]
+        # for PUT requests require users to be admins
+        if self.request.method == 'PUT':
+            self.permission_classes.append(IsAdminUser)
+
+        return super(viewsets.ViewSet, self).get_permissions()
 
     def list(self, request):
         """
         Returns all fermentables that are approved in the system by default.
         """
+        fermentables = models.Fermentable.objects.filter(is_active=True)
+
+        if request.auth is None:
+            fermentables = fermentables[:settings.UNAUTHENTICATED_RESULTS_COUNT]
+
         serializer = rf_serializers.ListSerializer(
-            models.Fermentable.objects.all() if request.auth is not None else models.Fermentable.objects.all()[:settings.UNAUTHENTICATED_RESULTS_COUNT],
+            fermentables,
             child=serializers.Fermentable()
         )
         return Response(serializer.data)
+
+    def create(self, request):
+        """
+        Create a new suggestion for a fermentable.
+        """
+        serializer = serializers.FermentableSuggestion(data=request.data)
+
+        if serializer.is_valid():
+            suggestion = serializer.save()
+            suggestion = models.Suggestion.objects.get(id=suggestion.id)
+
+            new_fermentable = models.Fermentable.objects.get(id=suggestion.suggested_object_id)
+            new_fermentable_data = serializers.Fermentable(new_fermentable).data
+
+            data = {
+                "old_fermentable_id": suggestion.replaced_object_id,
+                "new_fermentable": new_fermentable_data
+            }
+
+            return Response(data)
+
+        else:
+            return Response(serializer.errors)
+
+
+    def update(self, request, pk=None):
+        """Allows admins to update specific fermentable objects."""
+        fermentable = get_object_or_404(models.Fermentable, pk=pk)
+
+        serializer = serializers.SimpleFermentable(data=request.data)
+
+        if serializer.is_valid():
+            fermentable = serializer.save()
+
+            if request.data['is_active'] is not None:
+                fermentable.is_active = request.data['is_active']
+                fermentable.save()
+
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors)
