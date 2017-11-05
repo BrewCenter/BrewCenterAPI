@@ -46,36 +46,36 @@ class Style:
 
 
 def get_styles(s, d, stdout):
+
     """
-    Gets yeast from the source database (s), transforms them,
+    Get yeast from the source database (s), transforms them,
     and puts them in the destination database (d)
     """
     n = 0
 
     d.execute('DROP TABLE IF EXISTS styles;')
-    d.execute('CREATE TABLE styles(' \
-        'name TEXT,'                 \
-        'type TEXT,'                 \
-        'category TEXT,'             \
-        'og_min FLOAT,'              \
-        'og_max FLOAT,'              \
-        'fg_min FLOAT,'              \
-        'fg_max FLOAT,'              \
-        'ibu_min FLOAT,'             \
-        'ibu_max FLOAT,'             \
-        'srm_min FLOAT,'             \
-        'srm_max FLOAT,'             \
-        'abv_min FLOAT,'             \
-        'abv_max FLOAT'              \
-        ');'
-    )
+    d.execute('CREATE TABLE styles('
+              'name TEXT,'
+              'type TEXT,'
+              'category TEXT,'
+              'og_min FLOAT,'
+              'og_max FLOAT,'
+              'fg_min FLOAT,'
+              'fg_max FLOAT,'
+              'ibu_min FLOAT,'
+              'ibu_max FLOAT,'
+              'srm_min FLOAT,'
+              'srm_max FLOAT,'
+              'abv_min FLOAT,'
+              'abv_max FLOAT'
+              ');')
 
-    s.execute('SELECT "name", "type", "category", "og_min", "og_max", "fg_min", "fg_max", "ibu_min", "ibu_max", "color_min", "color_max", "abv_min", "abv_max" FROM style WHERE `deleted`=0;') 
+    s.execute('SELECT "name", "type", "category", "og_min", "og_max", "fg_min", "fg_max", "ibu_min", "ibu_max", "color_min", "color_max", "abv_min", "abv_max" FROM style WHERE `deleted`=0;')
     cur = s.fetchone()
     while cur:
         style = Style(cur)
         d.execute('INSERT INTO styles({0}) VALUES({1});'.format(Style.get_keys(), style))
-        n+=1
+        n += 1
         cur = s.fetchone()
 
     print("Found {0} styles.".format(n))

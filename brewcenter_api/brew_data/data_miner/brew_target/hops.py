@@ -47,7 +47,7 @@ class Hop:
 
 def get_hops(s, d, stdout):
     """
-    Gets hops rom the source database (s), transforms them,
+    Get hops rom the source database (s), transforms them,
     and puts them in the destination database (d)
     """
     n = 0
@@ -65,7 +65,7 @@ def get_hops(s, d, stdout):
         ');'
     )
 
-    s.execute('SELECT "name", "htype", "origin", "alpha", "beta", "notes" FROM hop WHERE `deleted`=0;') 
+    s.execute('SELECT "name", "htype", "origin", "alpha", "beta", "notes" FROM hop WHERE `deleted`=0;')
     cur = s.fetchone()
     while cur:
         h = Hop(cur)

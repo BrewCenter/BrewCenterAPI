@@ -1,14 +1,10 @@
-"""
-Various functions for cleaning and transforming data.
-"""
+"""Various functions for cleaning and transforming data."""
 
 import pycountry
 
 
 def convert_country(country_name):
-    """
-    Converts a country name to a code.
-    """
+    """Converts a country name to a code."""
     c = ""
     country = None
     try:

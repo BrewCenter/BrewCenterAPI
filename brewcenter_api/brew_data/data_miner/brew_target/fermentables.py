@@ -1,6 +1,4 @@
-"""
-Extracts Fermentables from the database, transforms them, and builds a new db.
-"""
+"""Extracts Fermentables from the database, transforms them, and builds a new db."""
 
 from brew_data.data_miner.brew_target.utils import clean, convert_country
 
@@ -24,7 +22,7 @@ class Fermentable:
         self.transform()
 
     def transform(self):
-        """transforms the data as neccessary to fit our specs"""
+        """Transform the data as neccessary to fit our specs."""
         self.name = '"' + self.name + '"'
         # convert boolean to integer for sqlite
         self.is_mashed = (1 if self.is_mashed == 'true' else 0)
@@ -74,26 +72,25 @@ class Fermentable:
 
 def get_fermentables(s, d):
     """
-    Gets fermentables from the source (s) and puts them in the destination (d).
+    Get fermentables from the source (s) and put them in the destination (d).
     """
     d.execute('DROP TABLE IF EXISTS fermentabletype;')
     d.execute('DROP TABLE IF EXISTS fermentable;')
     d.execute('CREATE TABLE fermentabletype(name TEXT, abbreviation TEXT);')
-    d.execute('CREATE TABLE fermentable('  \
-        'name TEXT,'                       \
-        'type_id int,'                     \
-        'country_id int,'                  \
-        'ppg FLOAT,'                       \
-        'lovibond FLOAT,'                  \
-        'moisture FLOAT,'                  \
-        'diastatic_power FLOAT,'           \
-        'protein FLOAT,'                   \
-        'max_in_batch FLOAT,'              \
-        'is_mashed INT,'                   \
-        'notes TEXT'                       \
-        ');'
-    )
-    s.execute('SELECT "name", "ftype", "yield", "color", "origin", "supplier", "notes", "coarse_fine_diff", "moisture", "diastatic_power", "protein", "max_in_batch", "is_mashed" FROM fermentable WHERE `deleted`=0;') 
+    d.execute('CREATE TABLE fermentable('
+              'name TEXT,'
+              'type_id int,'
+              'country_id int,'
+              'ppg FLOAT,'
+              'lovibond FLOAT,'
+              'moisture FLOAT,'
+              'diastatic_power FLOAT,'
+              'protein FLOAT,'
+              'max_in_batch FLOAT,'
+              'is_mashed INT,'
+              'notes TEXT'
+              ');')
+    s.execute('SELECT "name", "ftype", "yield", "color", "origin", "supplier", "notes", "coarse_fine_diff", "moisture", "diastatic_power", "protein", "max_in_batch", "is_mashed" FROM fermentable WHERE `deleted`=0;')
     cur = s.fetchone()
     n = 0
     while cur:

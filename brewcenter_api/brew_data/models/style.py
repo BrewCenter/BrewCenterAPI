@@ -7,6 +7,7 @@ class Style(models.Model):
     - Ale
     - Lager
     """
+
     name = models.CharField(max_length=255)
     type = models.CharField(max_length=255)
     category = models.CharField(max_length=255)

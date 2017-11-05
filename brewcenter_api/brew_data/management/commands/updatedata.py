@@ -43,7 +43,6 @@ class Command(BaseCommand):
                 country_id=cur[2],
                 notes=cur[3])[0]
 
-
             FermentableInstance.objects.get_or_create(
                 fermentable_id=fermentable.id,
                 ppg=cur[4],
@@ -53,7 +52,7 @@ class Command(BaseCommand):
                 diastatic_power_lintner=cur[7],
                 protein_percent=cur[8],
                 is_active=True)
-                
+
             n += 1
         self.stdout.write("Updated db with {0} Fermentables".format(n))
 

@@ -48,6 +48,7 @@ class Yeast:
 
 
 def get_yeast(s, d, stdout):
+
     """
     Gets yeast from the source database (s), transforms them,
     and puts them in the destination database (d)
@@ -57,20 +58,19 @@ def get_yeast(s, d, stdout):
     d.execute('DROP TABLE IF EXISTS yeasttype;')
     d.execute('DROP TABLE IF EXISTS yeast;')
     d.execute('CREATE TABLE yeasttype(name TEXT);')
-    d.execute('CREATE TABLE yeast(' \
-        'name TEXT,'                \
-        'type_id int,'              \
-        'is_liquid int,'            \
-        'lab TEXT,'                 \
-        'min_temp FLOAT,'           \
-        'max_temp FLOAT,'           \
-        'flocculation FLOAT,'       \
-        'attenuation FLOAT,'        \
-        'notes TEXT'                \
-        ');'
-    )
+    d.execute('CREATE TABLE yeast('
+              'name TEXT,'
+              'type_id int,'
+              'is_liquid int,'
+              'lab TEXT,'
+              'min_temp FLOAT,'
+              'max_temp FLOAT,'
+              'flocculation FLOAT,'
+              'attenuation FLOAT,'
+              'notes TEXT'
+              ');')
 
-    s.execute('SELECT "name", "ytype", "form", "laboratory", "min_temperature", "max_temperature", "flocculation", "attenuation", "notes" FROM yeast WHERE `deleted`=0;') 
+    s.execute('SELECT "name", "ytype", "form", "laboratory", "min_temperature", "max_temperature", "flocculation", "attenuation", "notes" FROM yeast WHERE `deleted`=0;')
     cur = s.fetchone()
     while cur:
         y = Yeast(cur)
@@ -87,7 +87,7 @@ def get_yeast(s, d, stdout):
             y.type_id = yeast_type_id[0] if yeast_type_id else 'NULL'
 
         d.execute('INSERT INTO yeast({0}) VALUES({1});'.format(Yeast.get_keys(), y))
-        n+=1
+        n += 1
         cur = s.fetchone()
 
     print("Found {0} yeast.".format(n))

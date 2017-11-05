@@ -11,6 +11,7 @@ class FermentableType(models.Model):
     - Dry Malt Extract (DME)
     - Liquid Malt Extract (LME)
     """
+
     name = models.CharField(max_length=255)
     abbreviation = models.CharField(max_length=10, null=True, blank=True)
     is_active = models.BooleanField(default=False)
@@ -36,6 +37,7 @@ class Fermentable(models.Model):
     def __str__(self):
         return self.name
 
+
 class FermentableInstance(models.Model):
     """
     A fermentable instance is a specific instance of a fermentable from a
@@ -46,13 +48,13 @@ class FermentableInstance(models.Model):
 
     YEAR_CHOICES = []
     for r in range(2000, (datetime.datetime.now().year+1)):
-        YEAR_CHOICES.append((r,r))
+        YEAR_CHOICES.append((r, r))
 
     fermentable = models.ForeignKey(Fermentable, related_name="instances", null=True, blank=True)
 
     year = models.IntegerField(choices=YEAR_CHOICES, null=True, blank=True)
     color = models.FloatField(null=True, blank=True)
-    color_units = models.TextField(choices=[('L','L'),('SRM','SRM')], max_length=3, null=True, blank=True)
+    color_units = models.TextField(choices=[('L', 'L'), ('SRM', 'SRM')], max_length=3, null=True, blank=True)
     ppg = models.FloatField(null=True, blank=True)
     dry_yield_percent = models.FloatField(null=True, blank=True)
     dry_yield_fine_grind_percent = models.FloatField(null=True, blank=True)
@@ -61,5 +63,5 @@ class FermentableInstance(models.Model):
     protein_percent = models.FloatField(null=True, blank=True)
     soluble_protein_percent = models.FloatField(null=True, blank=True)
     nitrogen_percent = models.FloatField(null=True, blank=True)
-    notes=models.TextField(null=True, blank=True)
+    notes = models.TextField(null=True, blank=True)
     is_active = models.BooleanField(default=False)

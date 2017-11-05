@@ -3,7 +3,8 @@ from brew_data.models import YeastType, Yeast
 
 
 class YeastTypeSerializer(serializers.ModelSerializer):
-    """Simple FermentableType Serializer"""
+    """Simple FermentableType Serializer."""
+
     class Meta:
         model = YeastType
         fields = ('id', 'name')

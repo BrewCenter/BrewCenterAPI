@@ -10,6 +10,7 @@ class YeastType(models.Model):
     - Ale
     - Lager
     """
+
     name = models.CharField(max_length=255)
     suggestion = GenericRelation(Suggestion)
 

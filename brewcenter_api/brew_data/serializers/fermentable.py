@@ -5,9 +5,11 @@ from brew_data import models
 
 class FermentableType(serializers.ModelSerializer):
     """Simple FermentableType Serializer"""
+
     class Meta:
         model = models.FermentableType
         fields = ('id', 'name', 'abbreviation')
+
 
 class FermentableTypeSuggestion(serializers.Serializer):
     """Serializes Fermentable Type Suggestions"""
@@ -25,9 +27,7 @@ class FermentableTypeSuggestion(serializers.Serializer):
         return old_type_id
 
     def create(self, validated_data):
-        """
-        Create a new Fermentable Type Suggestion.
-        """
+        """Create a new Fermentable Type Suggestion."""
         new_type_data = validated_data.pop('new_type')
         new_type = models.FermentableType.objects.create(**new_type_data)
 
@@ -42,8 +42,10 @@ class FermentableTypeSuggestion(serializers.Serializer):
 
         return suggestion
 
+
 class FermentableInstance(serializers.ModelSerializer):
     """Serializes a single fermentable instance object"""
+
     class Meta:
         model = models.FermentableInstance
         fields = (
@@ -62,15 +64,16 @@ class FermentableInstance(serializers.ModelSerializer):
             'nitrogen_percent',
         )
 
+
 class FermentableInstanceSuggestion(serializers.Serializer):
     """Serializes Suggestions for Fermentable Instances."""
+
     new_instance = FermentableInstance()
     old_instance_id = serializers.IntegerField(required=False, allow_null=True)
     fermentable_id = serializers.IntegerField()
 
     def validate_old_instance_id(self, old_instance_id):
         """Validate that the old_instance_id is correct if set."""
-
         # verify that if the old_type_id is not None, it has an object
         if old_instance_id is not None:
             old_instance = models.FermentableInstance.objects.get(id=old_instance_id)
@@ -87,17 +90,16 @@ class FermentableInstanceSuggestion(serializers.Serializer):
         return fermentable_id
 
     def create(self, validated_data):
-        """Saves the Fermentable Instance Suggestion"""
+        """Save the Fermentable Instance Suggestion."""
         fermentable_id = validated_data.pop('fermentable_id')
         new_instance_data = validated_data.pop('new_instance')
         new_instance = models.FermentableInstance.objects.create(**new_instance_data)
         new_instance.fermentable_id = fermentable_id
         new_instance.save()
-        
+
         old_instance_id = None
         if 'old_instance_id' in validated_data:
             old_instance_id = validated_data.pop('old_instance_id')
-
 
         suggestion = models.Suggestion.objects.create(
             content_type=ContentType.objects.get(model='fermentableinstance'),
@@ -108,7 +110,8 @@ class FermentableInstanceSuggestion(serializers.Serializer):
 
 
 class Fermentable(serializers.ModelSerializer):
-    """A simple serializer for fermentables"""
+    """A simple serializer for fermentables."""
+
     type = FermentableType()
     instances = serializers.ListSerializer(child=FermentableInstance())
 
@@ -123,8 +126,10 @@ class Fermentable(serializers.ModelSerializer):
             'notes'
         )
 
+
 class SimpleFermentable(serializers.ModelSerializer):
-    """A simple serializer for fermentables"""
+    """A simple serializer for fermentables."""
+
     type_id = serializers.IntegerField()
     instances = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
@@ -142,12 +147,12 @@ class SimpleFermentable(serializers.ModelSerializer):
 
 class FermentableSuggestion(serializers.Serializer):
     """Serializes Suggestions for Fermentables."""
+
     new_fermentable = SimpleFermentable()
     old_fermentable_id = serializers.IntegerField(required=False)
 
     def validate_old_fermentable_id(self, old_fermentable_id):
         """Validate that the old_fermentable_id is correct if set."""
-
         # verify that if the old_type_id is not None, it has an object
         if old_fermentable_id is not None:
             old_fermentable_id = models.Fermentable.objects.get(id=old_fermentable_id)
@@ -179,14 +184,13 @@ class FermentableSuggestion(serializers.Serializer):
         return super(FermentableSuggestion, self).validate(data)
 
     def create(self, validated_data):
-        """Saves the Fermentable Instance Suggestion"""
+        """Save the Fermentable Instance Suggestion."""
         old_fermentable_id = validated_data.pop('old_fermentable_id')
         new_fermentable_data = validated_data.pop('new_fermentable')
 
         new_fermentable_instances = []
         if 'instances' in new_fermentable_data:
             new_fermentable_instances = new_fermentable_data.pop('instances')
-
 
         new_fermentable = models.Fermentable.objects.create(**new_fermentable_data)
 
@@ -201,7 +205,7 @@ class FermentableSuggestion(serializers.Serializer):
             # this method should only be used for modifying existing instances on a fermentable
             if instance.fermentable is None:
                 raise ser
-                
+
             # otherwise copy the instance
             else:
                 instance.pk = instance.id = None
