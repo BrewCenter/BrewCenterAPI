@@ -9,17 +9,13 @@ from accounts.auth import TokenAuthentication
 
 
 class Styles(viewsets.ViewSet):
-    """
-    Methods to Retrieve and Suggest Beer Styles.
-    """
+    """Methods to Retrieve and Suggest Beer Styles."""
+
     authentication_classes = (JSONWebTokenAuthentication, TokenAuthentication)
     permission_classes = (IsAuthenticated, )
 
     def list(self, request):
-        """
-        Returns all the beer styles. Do not show suggested
-        beer styles by default.
-        """
+        """Return all the beer styles. Do not show suggested beer styles by default."""
         styles = models.Style.objects.all()
         if request.auth is None:
             styles = styles[:settings.UNAUTHENTICATED_RESULTS_COUNT]

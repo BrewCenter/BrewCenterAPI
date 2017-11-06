@@ -3,14 +3,16 @@ from brew_data.models import HopType, Hop
 
 
 class HopTypeSerializer(serializers.ModelSerializer):
-    """Simple HopType Serializer"""
+    """Simple HopType Serializer."""
+
     class Meta:
         model = HopType
         fields = ('id', 'name')
 
 
 class SimpleHopSerializer(serializers.ModelSerializer):
-    """A simple serializer for hops"""
+    """A simple serializer for hops."""
+
     class Meta:
         model = Hop
         fields = (

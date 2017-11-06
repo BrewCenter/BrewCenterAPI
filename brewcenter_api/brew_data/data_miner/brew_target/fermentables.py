@@ -71,9 +71,7 @@ class Fermentable:
 
 
 def get_fermentables(s, d):
-    """
-    Get fermentables from the source (s) and put them in the destination (d).
-    """
+    """Get fermentables from the source (s) and put them in the destination (d)."""
     d.execute('DROP TABLE IF EXISTS fermentabletype;')
     d.execute('DROP TABLE IF EXISTS fermentable;')
     d.execute('CREATE TABLE fermentabletype(name TEXT, abbreviation TEXT);')

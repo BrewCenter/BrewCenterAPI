@@ -48,10 +48,9 @@ class Yeast:
 
 
 def get_yeast(s, d, stdout):
-
     """
-    Gets yeast from the source database (s), transforms them,
-    and puts them in the destination database (d)
+    Get yeast from the source database (s), transform them,
+    and put them in the destination database (d)
     """
     n = 0
 

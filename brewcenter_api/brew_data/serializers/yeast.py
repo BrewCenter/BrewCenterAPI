@@ -11,7 +11,8 @@ class YeastTypeSerializer(serializers.ModelSerializer):
 
 
 class SimpleYeastSerializer(serializers.ModelSerializer):
-    """A simple serializer for hops"""
+    """A simple serializer for hops."""
+
     class Meta:
         model = Yeast
         fields = (

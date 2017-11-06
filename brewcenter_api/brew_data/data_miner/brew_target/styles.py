@@ -46,7 +46,6 @@ class Style:
 
 
 def get_styles(s, d, stdout):
-
     """
     Get yeast from the source database (s), transforms them,
     and puts them in the destination database (d)

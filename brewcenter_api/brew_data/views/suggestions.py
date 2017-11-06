@@ -8,15 +8,12 @@ from brew_data import models, serializers
 
 
 class Suggestions(APIView):
-    """
-    Methods to Retrieve Suggestions. Suggestions may be made against multiple different models.
-    """
+    """Methods to Retrieve Suggestions. Suggestions may be made against multiple different models."""
+
     authentication_classes = (JSONWebTokenAuthentication, )
     permission_classes = (IsAuthenticated, )
 
     def get(self, request):
-        """
-        Returns all the suggestions.
-        """
+        """Return all the suggestions."""
         serializer = rf_serializers.ListSerializer(models.Suggestion.objects.all(), child=serializers.SimpleSuggestionSerializer())
         return Response(serializer.data)

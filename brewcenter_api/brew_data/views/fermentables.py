@@ -11,10 +11,10 @@ from accounts.auth import TokenAuthentication
 
 from django.contrib.contenttypes.models import ContentType
 
+
 class FermentableTypes(viewsets.ViewSet):
-    """
-    View to Retrieve Fermentable ingredient Types.
-    """
+    """View to Retrieve Fermentable ingredient Types."""
+
     authentication_classes = (JSONWebTokenAuthentication, TokenAuthentication)
 
     # def get_permissions(self):
@@ -29,9 +29,7 @@ class FermentableTypes(viewsets.ViewSet):
     #     return super(viewsets.ViewSet, self).get_permissions()
 
     def list(self, request):
-        """
-        Returns all fermentable types in the system
-        """
+        """Return all fermentable types in the system."""
         fermentable_types = fermentable_types = models.FermentableType.objects.filter(is_active=True)
         # if the user is authenticated return all valid fermentable types
         if request.auth is None:
@@ -44,7 +42,7 @@ class FermentableTypes(viewsets.ViewSet):
         return Response(serializer.data)
 
     def update(self, request, pk=None):
-        """Allows admins to edit fermentable types directly."""
+        """Allow admins to edit fermentable types directly."""
         fermentable_type = get_object_or_404(models.FermentableType, pk=pk)
 
         serializer = serializers.FermentableType(data=request.data)
@@ -61,9 +59,7 @@ class FermentableTypes(viewsets.ViewSet):
             return Response(serializer.errors)
 
     def create(self, request):
-        """
-        Suggests a brand new fermentable type.
-        """
+        """Suggest a brand new fermentable type."""
         serializer = serializers.FermentableTypeSuggestion(data=request.data)
 
         if serializer.is_valid():
@@ -81,15 +77,14 @@ class FermentableTypes(viewsets.ViewSet):
         else:
             return Response(serializer.errors)
 
+
 class FermentableInstances(viewsets.ViewSet):
-    """
-    View to retrieve/update fermentable instances.
-    """
+    """View to retrieve/update fermentable instances."""
+
     authentication_classes = (JSONWebTokenAuthentication, TokenAuthentication)
 
     def get_permissions(self):
-        """Define custom permissions for different methods"""
-
+        """Define custom permissions for different methods."""
         # at minimum require users to be authenticated
         self.permission_classes = [IsAuthenticated]
         # for PUT requests require users to be admins
@@ -99,9 +94,7 @@ class FermentableInstances(viewsets.ViewSet):
         return super(viewsets.ViewSet, self).get_permissions()
 
     def create(self, request):
-        """
-        Create a new suggestion for a fermentable instance.
-        """
+        """Create a new suggestion for a fermentable instance."""
         serializer = serializers.FermentableInstanceSuggestion(data=request.data)
 
         if serializer.is_valid():
@@ -122,7 +115,7 @@ class FermentableInstances(viewsets.ViewSet):
             return Response(serializer.errors)
 
     def update(self, request, pk=None):
-        """Allows admins to update specific fermentable instance objects."""
+        """Allow admins to update specific fermentable instance objects."""
         instance = get_object_or_404(models.FermentableInstance, pk=pk)
 
         serializer = serializers.FermentableInstance(data=request.data)
@@ -138,16 +131,14 @@ class FermentableInstances(viewsets.ViewSet):
         else:
             return Response(serializer.errors)
 
+
 class Fermentables(viewsets.ViewSet):
-    """
-    View to Retrieve all approved fermentables and Suggest new
-    fermentables.
-    """
+    """View to Retrieve all approved fermentables and Suggest new fermentables."""
+
     authentication_classes = (JSONWebTokenAuthentication, TokenAuthentication)
 
     def get_permissions(self):
-        """Define custom permissions for different methods"""
-
+        """Define custom permissions for different methods."""
         # at minimum require users to be authenticated
         self.permission_classes = [IsAuthenticated]
         # for PUT requests require users to be admins
@@ -157,9 +148,7 @@ class Fermentables(viewsets.ViewSet):
         return super(viewsets.ViewSet, self).get_permissions()
 
     def list(self, request):
-        """
-        Returns all fermentables that are approved in the system by default.
-        """
+        """Return all fermentables that are approved in the system by default."""
         fermentables = models.Fermentable.objects.filter(is_active=True)
 
         if request.auth is None:
@@ -194,9 +183,8 @@ class Fermentables(viewsets.ViewSet):
         else:
             return Response(serializer.errors)
 
-
     def update(self, request, pk=None):
-        """Allows admins to update specific fermentable objects."""
+        """Allow admins to update specific fermentable objects."""
         fermentable = get_object_or_404(models.Fermentable, pk=pk)
 
         serializer = serializers.SimpleFermentable(data=request.data)

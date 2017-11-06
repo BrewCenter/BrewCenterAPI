@@ -9,16 +9,13 @@ from accounts.auth import TokenAuthentication
 
 
 class Countries(viewsets.ViewSet):
-    """
-    View to retrieve all countries from the API
-    """
+    """View to retrieve all countries from the API."""
+
     authentication_classes = (JSONWebTokenAuthentication, TokenAuthentication)
     permission_classes = (IsAuthenticated, )
 
     def list(self, request):
-        """
-        Returns all countries in the system.
-        """
+        """Return all countries in the system."""
         serializer = rf_serializers.ListSerializer(
             models.CountryCode.objects.all() if request.auth is not None else models.CountryCode.objects.all()[:settings.UNAUTHENTICATED_RESULTS_COUNT],
             child=serializers.CountryCodeSerializer()

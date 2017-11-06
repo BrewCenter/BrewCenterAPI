@@ -9,16 +9,13 @@ from accounts.auth import TokenAuthentication
 
 
 class YeastTypes(viewsets.ViewSet):
-    """
-    Methods to Retrieve and Suggest new Yeast Types.
-    """
+    """Methods to Retrieve and Suggest new Yeast Types."""
+
     authentication_classes = (JSONWebTokenAuthentication, TokenAuthentication)
     permission_classes = (IsAuthenticated, )
 
     def list(self, request):
-        """
-        Returns all approved yeast types by default.
-        """
+        """Return all approved yeast types by default."""
         serializer = rf_serializers.ListSerializer(
             models.YeastType.objects.all() if request.auth is not None else models.YeastType.objects.all()[:settings.UNAUTHENTICATED_RESULTS_COUNT],
             child=serializers.YeastTypeSerializer()
@@ -27,16 +24,13 @@ class YeastTypes(viewsets.ViewSet):
 
 
 class Yeast(viewsets.ViewSet):
-    """
-    Methods to Retrieve and Suggest new Yeast strains.
-    """
+    """Methods to Retrieve and Suggest new Yeast strains."""
+
     authentication_classes = (JSONWebTokenAuthentication, TokenAuthentication)
     permission_classes = (IsAuthenticated, )
 
     def list(self, request):
-        """
-        Returns all approved yeast strains.
-        """
+        """Return all approved yeast strains."""
         serializer = rf_serializers.ListSerializer(
             models.Yeast.objects.all() if request.auth is not None else models.Yeast.objects.all()[:settings.UNAUTHENTICATED_RESULTS_COUNT],
             child=serializers.SimpleYeastSerializer()

@@ -55,15 +55,14 @@ def get_hops(s, d, stdout):
     d.execute('DROP TABLE IF EXISTS hoptype;')
     d.execute('DROP TABLE IF EXISTS hop;')
     d.execute('CREATE TABLE hoptype(name TEXT);')
-    d.execute('CREATE TABLE hop('  \
-        'name TEXT,'                \
-        'type_id int,'              \
-        'country_id int,'           \
-        'alpha_acids FLOAT,'        \
-        'beta_acids FLOAT,'         \
-        'notes TEXT'                \
-        ');'
-    )
+    d.execute('CREATE TABLE hop('
+              'name TEXT,'
+              'type_id int,'
+              'country_id int,'
+              'alpha_acids FLOAT,'
+              'beta_acids FLOAT,'
+              'notes TEXT'
+              ');')
 
     s.execute('SELECT "name", "htype", "origin", "alpha", "beta", "notes" FROM hop WHERE `deleted`=0;')
     cur = s.fetchone()
@@ -93,7 +92,7 @@ def get_hops(s, d, stdout):
             h.type_id = hop_type_id[0] if hop_type_id else 'NULL'
 
         d.execute('INSERT INTO hop({0}) VALUES({1});'.format(Hop.get_keys(), h))
-        n+=1
+        n += 1
         cur = s.fetchone()
 
     print("Found {0} hops.".format(n))

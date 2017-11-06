@@ -1,6 +1,4 @@
-"""
-Define the brew_data module URLs here and point them to their respective views.
-"""
+"""Define the brew_data module URLs here and point them to their respective views."""
 from brew_data import views
 
 from rest_framework import routers

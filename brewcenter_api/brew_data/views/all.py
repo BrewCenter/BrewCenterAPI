@@ -13,9 +13,8 @@ from brew_data.views.yeast import Yeast, YeastTypes
 
 
 class All(viewsets.ViewSet):
-    """
-    Methods to Retrieve all Brewcenter Data.
-    """
+    """Methods to Retrieve all Brewcenter Data."""
+
     authentication_classes = (JSONWebTokenAuthentication, TokenAuthentication)
     permission_classes = (IsAuthenticated, )
 

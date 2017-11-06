@@ -1,5 +1,5 @@
 """
-Run this script in Django's Manage.py like so: `python manage.py shell < ../scripts/data_loader`
+Run this script in Django's Manage.py like so: `python manage.py shell < ../scripts/data_loader`.
 """
 import os
 import sqlite3 as sql

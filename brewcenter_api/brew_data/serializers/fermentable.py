@@ -177,9 +177,9 @@ class FermentableSuggestion(serializers.Serializer):
                 if instance is not None:
                     if instance.fermentable.id != old_fermentable_id:
                         raise serializers.ValidationError(
-                            "Instance with id '{0}' does not belong to the old fermentable with " \
-                            "id '{1}'. New instances cannot be added with this endpoint. This "   \
-                            "should only be used for taking old instances out of the suggestion." \
+                            "Instance with id '{0}' does not belong to the old fermentable with "
+                            "id '{1}'. New instances cannot be added with this endpoint. This "
+                            "should only be used for taking old instances out of the suggestion."
                             .format(intance_id, data['old_fermentable_id']))
         return super(FermentableSuggestion, self).validate(data)
 

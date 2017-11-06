@@ -63,6 +63,7 @@ class TestFactory():
         return hop
 
     def create_yeast_type(self):
+        """Create YeastType object for testing."""
         yeast_type = YeastType.objects.create(
             name='Ale'
         )
@@ -70,6 +71,7 @@ class TestFactory():
         return yeast_type
 
     def create_yeast(self, yeast_type):
+        """Create Yeast Object for Testing."""
         yeast_type = self.create_yeast_type()
         yeast = Yeast.objects.create(
             name='Brewer\'s Yeast',
@@ -87,7 +89,7 @@ class CountryCodeTestCase(TestCase):
     """Tests basic aspects of creating a country code."""
 
     def test_create_code(self):
-        """Tests that you can create a basic country code."""
+        """Test that you can create a basic country code."""
         TestFactory.create_country_code()
         self.assertIsNotNone(CountryCode.objects.get(code="T1"))
 
@@ -178,9 +180,11 @@ class YeastTypeTestCase(TestCase):
         self.yeasttype = tf.create_yeast_type()
 
     def test_create_yeast_type(self):
+        """TestFactory.create_yeast_type should create new yeast type object."""
         self.assertIsNotNone(self.yeasttype)
 
     def test_yeast_type_str_method(self):
+        """Calling str(YeastType) should return types name attribute."""
         self.assertEqual(self.yeasttype.name, str(self.yeasttype))
 
     def tearDown(self):

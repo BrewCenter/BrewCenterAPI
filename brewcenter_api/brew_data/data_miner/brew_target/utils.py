@@ -4,7 +4,7 @@ import pycountry
 
 
 def convert_country(country_name):
-    """Converts a country name to a code."""
+    """Convert a country name to a code."""
     c = ""
     country = None
     try:
