@@ -1,5 +1,8 @@
 # BrewCenterAPI
 
+## Please Hold All Development
+For the time being, please hold off on any and all BrewCenter development. I'm in the midst of doing a redesign before progress goes too far. In particular, I'm working on refactoring the overall architecture to offer better support for a service-oriented architecture of a suite of tools. Other improvements will include stronger authentication and authorization mechanisms, and introducing GraphQL as the main method of using data. 
+
 ### What the heck is a BrewCenter API?
 The BrewCenter API is an open source and free-to-use API for sharing brewing related data. Using this API, brewgrammers (brewing programmers) can share scientific specifications for fermentables, hops, yeast, and other pertinent information for the creating of brewing related apps!
 The aim of this project is not to make a product for the average homebrewer, but rather to make a product for the experienced brewgrammer. This API will allow people to fetch all of its data. This data can then be used in other brewing applications to populate fields and choices with values that the community agrees are correct.
