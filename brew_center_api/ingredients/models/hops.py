@@ -2,7 +2,6 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from ingredients.models.origin import Origin
 from ingredients.models.manufacturer import Manufacturer
-from datetime import date
 
 class HopForm(models.Model):
     """
