@@ -1,0 +1,42 @@
+[
+{
+    "model": "ingredients.cultureform",
+    "pk": 1,
+    "fields": {
+        "name": "Liquid",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.cultureform",
+    "pk": 2,
+    "fields": {
+        "name": "Dry",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.cultureform",
+    "pk": 3,
+    "fields": {
+        "name": "Slant",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.cultureform",
+    "pk": 4,
+    "fields": {
+        "name": "Culture",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.cultureform",
+    "pk": 5,
+    "fields": {
+        "name": "Dregs",
+        "is_active": true
+    }
+}
+]
