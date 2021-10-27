@@ -216,15 +216,13 @@ class HopNode(DjangoObjectType):
             "id",
             "name",
             "type",
-            "notes",
-            "potential_ppg",
-            "notes",
             "product_id",
             "year"
         )
 
     # Fields that require special handling
     name = graphene.Field(graphene.String, resolver=lambda hop, info: str(hop))
+    producer = graphene.String(resolver=create_nested_attr_resolver('variety', 'notes'))
     producer = graphene.String(resolver=create_nested_attr_resolver('manufacturer', 'name'))
     origin = graphene.String(resolver=create_nested_attr_resolver('origin', 'name'))
     form = graphene.String(resolver=create_nested_attr_resolver('form', 'name'))

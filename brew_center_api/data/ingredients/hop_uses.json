@@ -1,0 +1,26 @@
+[
+{
+    "model": "ingredients.hopuse",
+    "pk": 1,
+    "fields": {
+        "name": "Bittering",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.hopuse",
+    "pk": 2,
+    "fields": {
+        "name": "Aroma",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.hopuse",
+    "pk": 3,
+    "fields": {
+        "name": "Flavor",
+        "is_active": true
+    }
+}
+]

@@ -1,0 +1,42 @@
+[
+{
+    "model": "ingredients.hopform",
+    "pk": 1,
+    "fields": {
+        "name": "Pellet",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.hopform",
+    "pk": 2,
+    "fields": {
+        "name": "Leaf (wet)",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.hopform",
+    "pk": 3,
+    "fields": {
+        "name": "Extract",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.hopform",
+    "pk": 4,
+    "fields": {
+        "name": "Powder",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.hopform",
+    "pk": 5,
+    "fields": {
+        "name": "Plug",
+        "is_active": true
+    }
+}
+]
