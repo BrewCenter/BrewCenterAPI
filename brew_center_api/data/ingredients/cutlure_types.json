@@ -1,0 +1,106 @@
+[
+{
+    "model": "ingredients.culturetype",
+    "pk": 1,
+    "fields": {
+        "name": "ale",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.culturetype",
+    "pk": 2,
+    "fields": {
+        "name": "bacteria",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.culturetype",
+    "pk": 3,
+    "fields": {
+        "name": "brett",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.culturetype",
+    "pk": 4,
+    "fields": {
+        "name": "champagne",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.culturetype",
+    "pk": 5,
+    "fields": {
+        "name": "kveik",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.culturetype",
+    "pk": 6,
+    "fields": {
+        "name": "lacto",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.culturetype",
+    "pk": 7,
+    "fields": {
+        "name": "lager",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.culturetype",
+    "pk": 8,
+    "fields": {
+        "name": "malolactic",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.culturetype",
+    "pk": 9,
+    "fields": {
+        "name": "mixed-culture",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.culturetype",
+    "pk": 10,
+    "fields": {
+        "name": "other",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.culturetype",
+    "pk": 11,
+    "fields": {
+        "name": "pedio",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.culturetype",
+    "pk": 12,
+    "fields": {
+        "name": "spontaneous",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.culturetype",
+    "pk": 13,
+    "fields": {
+        "name": "wine",
+        "is_active": true
+    }
+}
+]

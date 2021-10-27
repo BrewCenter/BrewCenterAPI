@@ -1,0 +1,58 @@
+[
+{
+    "model": "ingredients.flocculationlabel",
+    "pk": 1,
+    "fields": {
+        "name": "very low",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.flocculationlabel",
+    "pk": 2,
+    "fields": {
+        "name": "low",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.flocculationlabel",
+    "pk": 3,
+    "fields": {
+        "name": "medium low",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.flocculationlabel",
+    "pk": 4,
+    "fields": {
+        "name": "medium",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.flocculationlabel",
+    "pk": 5,
+    "fields": {
+        "name": "medium high",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.flocculationlabel",
+    "pk": 6,
+    "fields": {
+        "name": "high",
+        "is_active": true
+    }
+},
+{
+    "model": "ingredients.flocculationlabel",
+    "pk": 7,
+    "fields": {
+        "name": "very high",
+        "is_active": true
+    }
+}
+]
