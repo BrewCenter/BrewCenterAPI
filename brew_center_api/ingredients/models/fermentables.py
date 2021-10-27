@@ -14,6 +14,9 @@ class FermentableType(models.Model):
     abbreviation = models.CharField(max_length=10, null=True, blank=True)
     is_active = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ['name']
+        
     def __str__(self):
         return self.name
 
@@ -26,6 +29,9 @@ class GrainType(models.Model):
     """
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['name']
 
     def __str__(self):
         return self.name
@@ -54,7 +60,11 @@ class FermentableBase(models.Model):
     product_id = models.CharField(max_length=255, null=True, blank=True)
     potential_ppg = models.FloatField(validators=[MinValueValidator(0)])
     color_srm = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(60)])
-    notes = models.TextField()
+    notes = models.TextField(null=True, blank=True)
+    fermentability_percent = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(1)])
+
+    class Meta:
+        ordering = ['name']
 
     def __str__(self):
         return self.name
@@ -110,6 +120,9 @@ class Grain(models.Model):
     beta_glucan_ppm = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0)])
     fine_grind_potential_ppg = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0)])
     coarse_grind_potential_ppg = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0)])
+
+    class Meta:
+        order_with_respect_to = 'fermentable'
 
     def __str__(self):
         return self.fermentable.__str__()
