@@ -1,0 +1,68 @@
+[
+    {
+        "model": "ingredients.fermentabletype",
+        "pk": 1,
+        "fields": {
+            "name": "Dry Malt Extract",
+            "abbreviation": "DME",
+            "is_active": true
+        }
+    },
+    {
+        "model": "ingredients.fermentabletype",
+        "pk": 2,
+        "fields": {
+            "name": "Liquid Malt Extract",
+            "abbreviation": "LME",
+            "is_active": true
+        }
+    },
+    {
+        "model": "ingredients.fermentabletype",
+        "pk": 3,
+        "fields": {
+            "name": "Grain",
+            "is_active": true
+        }
+    },
+    {
+        "model": "ingredients.fermentabletype",
+        "pk": 4,
+        "fields": {
+            "name": "Sugar",
+            "is_active": true
+        }
+    },
+    {
+        "model": "ingredients.fermentabletype",
+        "pk": 5,
+        "fields": {
+            "name": "Fruit",
+            "is_active": true
+        }
+    },
+    {
+        "model": "ingredients.fermentabletype",
+        "pk": 6,
+        "fields": {
+            "name": "Juice",
+            "is_active": true
+        }
+    },
+    {
+        "model": "ingredients.fermentabletype",
+        "pk": 7,
+        "fields": {
+            "name": "Honey",
+            "is_active": true
+        }
+    },
+    {
+        "model": "ingredients.fermentabletype",
+        "pk": 8,
+        "fields": {
+            "name": "Other",
+            "is_active": true
+        }
+    }
+]
