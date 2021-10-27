@@ -1,6 +1,6 @@
 import graphene
 from graphene_django import DjangoObjectType
-from ingredients.models import FermentableBase
+from ingredients.models import FermentableBase, HopProduct
 
 def self_resolver(object, query_info):
     return object
@@ -15,6 +15,15 @@ def create_nested_attr_resolver(*args):
                 value = None
         return value
     return resolver
+
+def resolve_hop_type(hop_product, query_info):
+    uses = hop_product.variety.uses
+
+    if uses.count() == 0:
+        return None
+    if uses.count() == 1:
+        return uses.first()
+    return '/'.join(str(use).lower() for use in uses.all())
 
 def ppg_to_sg(ppg_value):
     """
@@ -153,18 +162,18 @@ class FermentableNode(DjangoObjectType):
             "type",
             "notes",
             "potential_ppg",
-            "notes"
+            "notes",
+            "product_id"
         )
 
     # Fields on the FermentableBase model
-    producer_id = graphene.Field(graphene.String, source='product_id')
     fermentability = graphene.Field(PercentageNode, source='fermentability_percent')
-    producer = graphene.String(resolver=create_nested_attr_resolver('manufacturer', 'name'))
     origin = graphene.String(resolver=create_nested_attr_resolver('origin', 'name'))
     color = graphene.Field(SRMColorNode, source='color_srm')
-    grain_group = graphene.String(resolver=create_nested_attr_resolver('grain', 'type', 'name'))
+    producer = graphene.String(resolver=create_nested_attr_resolver('manufacturer', 'name'))
 
     # Fields from the Grain sub-model
+    grain_group = graphene.String(resolver=create_nested_attr_resolver('grain', 'type', 'name'))
     yield_sg = graphene.Field(YieldNode, name='yield', resolver=lambda ferm, info : ferm)
     moisture = graphene.Field(PercentageNode, resolver=create_nested_attr_resolver('grain', 'moisture_percent'))
     alpha_amylase = graphene.Float(resolver=create_nested_attr_resolver('grain', 'alpha_amylase'))
@@ -185,10 +194,53 @@ class FermentableNode(DjangoObjectType):
     fan = graphene.Field(ConcentrationPPMNode, resolver=create_nested_attr_resolver('grain', 'fan_ppm'))
     beta_glucan = graphene.Field(ConcentrationPPMNode, resolver=create_nested_attr_resolver('grain', 'beta_glucan_ppm'))
 
+class HopOilContentNode(graphene.ObjectType):
+    total_oil_ml_per_100g = graphene.Float()
+    humulene = graphene.Field(PercentageNode, source="humulene_percent")
+    caryophyllene = graphene.Field(PercentageNode, source="caryophyllene_percent")
+    myrcene = graphene.Field(PercentageNode, source="myrcene_percent")
+    farnesene = graphene.Field(PercentageNode, source="farnesene_percent")
+    geraniol = graphene.Field(PercentageNode, source="geraniol_percent")
+    b_pinene = graphene.Field(PercentageNode, source="b_pinene_percent")
+    linalool = graphene.Field(PercentageNode, source="linalool_percent")
+    limonene = graphene.Field(PercentageNode, source="limonene_percent")
+    nerol = graphene.Field(PercentageNode, source="nerol_percent")
+    pinene = graphene.Field(PercentageNode, source="pinene_percent")
+    polyphenols = graphene.Field(PercentageNode, source="polyphenols_percent")
+    xanthohumol = graphene.Field(PercentageNode, source="xanthohumol_percent")
+
+class HopNode(DjangoObjectType):
+    class Meta:
+        model = HopProduct
+        fields = (
+            "id",
+            "name",
+            "type",
+            "notes",
+            "potential_ppg",
+            "notes",
+            "product_id",
+            "year"
+        )
+
+    # Fields that require special handling
+    name = graphene.Field(graphene.String, resolver=lambda hop, info: str(hop))
+    producer = graphene.String(resolver=create_nested_attr_resolver('manufacturer', 'name'))
+    origin = graphene.String(resolver=create_nested_attr_resolver('origin', 'name'))
+    form = graphene.String(resolver=create_nested_attr_resolver('form', 'name'))
+    alpha_acid = graphene.Field(PercentageNode, source="alpha_acid_percent")
+    beta_acid = graphene.Field(PercentageNode, source="beta_acid_percent")
+    type = graphene.String(resolver=resolve_hop_type)
+    percent_lost = graphene.Field(PercentageNode, source="percent_lost_after_6_months")
+    oil_content = graphene.Field(HopOilContentNode, resolver=self_resolver)
+
+
 class Query(graphene.ObjectType):
     version = graphene.String()
     fermentables = graphene.List(
         FermentableNode, ids=graphene.List(graphene.String, required=False))
+    hops = graphene.List(
+        HopNode, ids=graphene.List(graphene.String, required=False))
 
     def resolve_version(*args):
         return '1.0'
@@ -197,6 +249,11 @@ class Query(graphene.ObjectType):
         if 'ids' in kwargs:
             return FermentableBase.objects.filter(id__in=kwargs['ids'])
         return FermentableBase.objects.all()
+
+    def resolve_hops(root, info, **kwargs):
+        if 'ids' in kwargs:
+            return HopProduct.objects.filter(id__in=kwargs['ids'])
+        return HopProduct.objects.all()
 
 
 schema = graphene.Schema(query=Query, auto_camelcase=False)

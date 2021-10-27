@@ -60,7 +60,7 @@ class FermentableBase(models.Model):
     product_id = models.CharField(max_length=255, null=True, blank=True)
     potential_ppg = models.FloatField(validators=[MinValueValidator(0)])
     color_srm = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(60)])
-    notes = models.TextField()
+    notes = models.TextField(null=True, blank=True)
     fermentability_percent = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(1)])
 
     class Meta:
