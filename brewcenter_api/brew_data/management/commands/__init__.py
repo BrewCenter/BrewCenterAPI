@@ -1,1 +1,0 @@
-from brew_data.management.commands.updatedata import Command
