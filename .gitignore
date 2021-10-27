@@ -1,8 +1,8 @@
 # my ignored files
 
-brewcenter_api/brewcenter_api/settings.py
-brewcenter_api/db.sqlite3
-brewcenter_api/static
+brew_center_api/brewcenter_api/settings.py
+brew_center_api/db.sqlite3
+brew_center_api/static
 
 *.sqlite
 # Byte-compiled / optimized / DLL files
