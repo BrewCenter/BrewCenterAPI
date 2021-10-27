@@ -1,6 +1,7 @@
 import graphene
+from graphene.types.objecttype import ObjectType
 from graphene_django import DjangoObjectType
-from ingredients.models import FermentableBase, HopProduct
+from ingredients.models import FermentableBase, HopProduct, Culture
 
 def self_resolver(object, query_info):
     return object
@@ -82,6 +83,16 @@ class PercentageNode(graphene.ObjectType):
 
     def resolve_value(value, info):
         return value * 100
+
+class TemperatureNode(graphene.ObjectType):
+    unit = graphene.String()
+    value = graphene.Float()
+
+    def resolve_unit(self, info):
+        return 'F'
+
+    def resolve_value(value, info):
+        return value
 
 class SpecificGravityNode(graphene.ObjectType):
     unit = graphene.String()
@@ -232,6 +243,68 @@ class HopNode(DjangoObjectType):
     percent_lost = graphene.Field(PercentageNode, source="percent_lost_after_6_months")
     oil_content = graphene.Field(HopOilContentNode, resolver=self_resolver)
 
+class CultureTempRangeNode(ObjectType):
+    minimum = graphene.Field(TemperatureNode)
+    maximum = graphene.Field(TemperatureNode)
+
+    def resolve_minimum(culture, query_info):
+        return culture.min_temp_f
+
+    def resolve_maximum(culture, query_info):
+        return culture.max_temp_f
+
+class PercentageRangeNode(ObjectType):
+    minimum = graphene.Field(PercentageNode)
+    maximum = graphene.Field(PercentageNode)
+
+class TemperatureRangeNode(ObjectType):
+    minimum = graphene.Field(TemperatureNode)
+    maximum = graphene.Field(TemperatureNode)
+
+class CultureZymocideNode(ObjectType):
+    no1 = graphene.Boolean(source='is_zymocide_no1')
+    no2 = graphene.Boolean(source='is_zymocide_no2')
+    no28 = graphene.Boolean(source='is_zymocide_no28')
+    klus = graphene.Boolean(source='is_zymocide_klus')
+    neutral = graphene.Boolean(source='is_zymocide_neutral')
+
+class CultureNode(DjangoObjectType):
+    class Meta:
+        model = Culture
+        fields = (
+            "id",
+            "name",
+            "product_id",
+            'notes',
+            'best_for',
+            'max_reuse'
+        )
+
+    # Fields that require special processing
+    producer = graphene.String(resolver=create_nested_attr_resolver('manufacturer', 'name'))
+    type = graphene.String(resolver=create_nested_attr_resolver('type', 'name'))
+    form = graphene.String(resolver=create_nested_attr_resolver('form', 'name'))
+    temperature_range = graphene.Field(TemperatureRangeNode)
+    alcohol_tolerance = graphene.Field(PercentageNode, source="alcohol_tolerance_percent")
+    flocculation = graphene.String(resolver=create_nested_attr_resolver('flocculation', 'name'))
+    attenuation_range = graphene.Field(PercentageRangeNode)
+    pof = graphene.Boolean(source='is_pof_positive')
+    glucoamylase = graphene.Boolean(source='is_glucoamylase_positive')
+    zymocide = graphene.Field(CultureZymocideNode, resolver=self_resolver)
+
+    def resolve_attenuation_range(culture, query_info):
+        return {
+            'minimum': culture.min_attenuation_percent,
+            'maximum': culture.max_attenuation_percent,
+        }
+
+    def resolve_temperature_range(culture, query_info):
+        return {
+            'minimum': culture.min_temp_f,
+            'maximum': culture.max_temp_f,
+        }
+    
+    
 
 class Query(graphene.ObjectType):
     version = graphene.String()
@@ -239,6 +312,8 @@ class Query(graphene.ObjectType):
         FermentableNode, ids=graphene.List(graphene.String, required=False))
     hops = graphene.List(
         HopNode, ids=graphene.List(graphene.String, required=False))
+    cultures = graphene.List(
+        CultureNode, ids=graphene.List(graphene.String, required=False))
 
     def resolve_version(*args):
         return '1.0'
@@ -252,6 +327,12 @@ class Query(graphene.ObjectType):
         if 'ids' in kwargs:
             return HopProduct.objects.filter(id__in=kwargs['ids'])
         return HopProduct.objects.all()
+
+    def resolve_cultures(root, info, **kwargs):
+        if 'ids' in kwargs:
+            return Culture.objects.filter(id__in=kwargs['ids'])
+        return Culture.objects.all()
+
 
 
 schema = graphene.Schema(query=Query, auto_camelcase=False)
