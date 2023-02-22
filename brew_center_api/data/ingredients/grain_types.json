@@ -1,0 +1,58 @@
+[
+  {
+    "model": "ingredients.graintype",
+    "pk": 1,
+    "fields": {
+        "name": "Base",
+        "is_active": true
+    }
+  },
+  {
+    "model": "ingredients.graintype",
+    "pk": 2,
+    "fields": {
+        "name": "Caramel",
+        "is_active": true
+    }
+  },
+  {
+    "model": "ingredients.graintype",
+    "pk": 3,
+    "fields": {
+        "name": "Flaked",
+        "is_active": true
+    }
+  },
+  {
+    "model": "ingredients.graintype",
+    "pk": 4,
+    "fields": {
+        "name": "Roasted",
+        "is_active": true
+    }
+  },
+  {
+    "model": "ingredients.graintype",
+    "pk": 5,
+    "fields": {
+        "name": "Specialty",
+        "is_active": true
+    }
+  },
+  {
+    "model": "ingredients.graintype",
+    "pk": 6,
+    "fields": {
+        "name": "Smoked",
+        "is_active": true
+    }
+  },
+  {
+    "model": "ingredients.graintype",
+    "pk": 7,
+    "fields": {
+        "name": "Adjunct",
+        "is_active": true
+    }
+  }
+]
