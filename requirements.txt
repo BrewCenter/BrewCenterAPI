@@ -1,0 +1,11 @@
+aniso8601==9.0.1
+asgiref==3.6.0
+Django==4.1.7
+graphene==3.2.1
+graphene-django==3.0.0
+graphql-core==3.2.3
+graphql-relay==3.2.0
+promise==2.3
+six==1.16.0
+sqlparse==0.4.3
+text-unidecode==1.3
