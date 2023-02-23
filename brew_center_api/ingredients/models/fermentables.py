@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from ingredients.models.origin import Origin
-from ingredients.models.manufacturer import Manufacturer 
+from ingredients.models.manufacturer import Manufacturer
 
 class FermentableType(models.Model):
     """
@@ -16,7 +16,7 @@ class FermentableType(models.Model):
 
     class Meta:
         ordering = ['name']
-        
+
     def __str__(self):
         return self.name
 
@@ -39,7 +39,7 @@ class GrainType(models.Model):
 class FermentableBase(models.Model):
     """
     Defines the basic properties used by all fermentables.
-    
+
     Attributes:
         name                    The name of the fermentable.
         type                    A foreign key reference to a FermentableType (e.g. "Grain")
@@ -57,7 +57,6 @@ class FermentableBase(models.Model):
     is_active = models.BooleanField(default=False)
     origin = models.ForeignKey(Origin, null=True, blank=True, on_delete=models.SET_NULL)
     manufacturer = models.ForeignKey(Manufacturer, null=True, blank=True, on_delete=models.SET_NULL)
-    product_id = models.CharField(max_length=255, null=True, blank=True)
     potential_ppg = models.FloatField(validators=[MinValueValidator(0)])
     color_srm = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(60)])
     notes = models.TextField(null=True, blank=True)
@@ -68,6 +67,13 @@ class FermentableBase(models.Model):
 
     def __str__(self):
         return self.name
+
+class FermentableProductId(models.Model):
+    product_id = models.CharField(max_length=255)
+    fermentable = models.ForeignKey(FermentableBase, null=False, blank=False, related_name='product_ids', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.product_id
 
 class Grain(models.Model):
     """

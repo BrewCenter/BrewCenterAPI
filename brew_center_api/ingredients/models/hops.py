@@ -15,7 +15,7 @@ class HopForm(models.Model):
 
     def __str__(self):
         return self.name
-        
+
 
 class HopUse(models.Model):
     """
@@ -69,10 +69,12 @@ class HopProduct(models.Model):
     pinene_percent = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(1)])
     polyphenols_percent = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(1)])
     xanthohumol_percent = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(1)])
-    
+
 
     class Meta:
         order_with_respect_to = 'variety'
+        verbose_name = 'Hop'
+        verbose_name_plural = 'Hops'
 
     def __str__(self):
         display_name = self.variety.name
