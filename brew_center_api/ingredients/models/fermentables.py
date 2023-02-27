@@ -11,6 +11,7 @@ class FermentableType(models.Model):
     - Liquid Malt Extract (LME)
     """
     name = models.CharField(max_length=255)
+    value = models.CharField(max_length=255)
     abbreviation = models.CharField(max_length=10, null=True, blank=True)
     is_active = models.BooleanField(default=False)
 
@@ -52,13 +53,16 @@ class FermentableBase(models.Model):
         fermentability_percent  Used in Extracts to indicate a baseline typical apparent attenuation for a typical medium attenuation yeast.
         notes                   Any remarks on the flavor or other qualities contributed by this fermentable.
     """
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=255)
+    product_id = models.CharField(max_length=255, null=True, blank=True)
     type = models.ForeignKey(FermentableType, on_delete=models.RESTRICT)
     is_active = models.BooleanField(default=False)
     origin = models.ForeignKey(Origin, null=True, blank=True, on_delete=models.SET_NULL)
     manufacturer = models.ForeignKey(Manufacturer, null=True, blank=True, on_delete=models.SET_NULL)
-    potential_ppg = models.FloatField(validators=[MinValueValidator(0)])
-    color_srm = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(60)])
+    potential_ppg = models.FloatField(validators=[MinValueValidator(0)], null=True, blank=True)
+    color_srm = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(60)], null=True, blank=True)
     notes = models.TextField(null=True, blank=True)
     fermentability_percent = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(1)])
 
@@ -67,13 +71,6 @@ class FermentableBase(models.Model):
 
     def __str__(self):
         return self.name
-
-class FermentableProductId(models.Model):
-    product_id = models.CharField(max_length=255)
-    fermentable = models.ForeignKey(FermentableBase, null=False, blank=False, related_name='product_ids', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.product_id
 
 class Grain(models.Model):
     """
@@ -105,6 +102,8 @@ class Grain(models.Model):
         coarse_grind_potential_ppg  Percentage yield compared to succrose of a fine grind. eg 60%
 
     """
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     type = models.ForeignKey(GrainType, on_delete=models.RESTRICT, related_name="grains")
     fermentable = models.OneToOneField(FermentableBase, on_delete=models.CASCADE, related_name="grain")
     moisture_percent = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(1)])
@@ -115,6 +114,7 @@ class Grain(models.Model):
     max_in_batch_percent = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(1)])
     recommend_mash = models.BooleanField(default=True)
     glassy_percent = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(1)])
+    half_percent = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(1)])
     plump_percent = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(1)])
     mealy_percent = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(1)])
     thru_percent = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(1)])
@@ -122,10 +122,10 @@ class Grain(models.Model):
     di_ph = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0), MaxValueValidator(14)])
     viscosity_cp = models.FloatField(null=True, blank=True)
     dms_precursors_ppm = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0)])
-    fan_ppm = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0)])
+    fan_mg_l = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0)])
     beta_glucan_ppm = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0)])
-    fine_grind_potential_ppg = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0)])
-    coarse_grind_potential_ppg = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0)])
+    fine_grind_potential_percent = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0)])
+    coarse_grind_potential_percent = models.FloatField(null=True, blank=True, validators=[MinValueValidator(0)])
 
     class Meta:
         order_with_respect_to = 'fermentable'

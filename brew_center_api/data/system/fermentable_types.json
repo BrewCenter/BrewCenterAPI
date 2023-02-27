@@ -5,6 +5,7 @@
         "fields": {
             "name": "Dry Malt Extract",
             "abbreviation": "DME",
+            "value": "dry extract",
             "is_active": true
         }
     },
@@ -13,6 +14,7 @@
         "pk": 2,
         "fields": {
             "name": "Liquid Malt Extract",
+            "value": "extract",
             "abbreviation": "LME",
             "is_active": true
         }
@@ -22,6 +24,7 @@
         "pk": 3,
         "fields": {
             "name": "Grain",
+            "value": "grain",
             "is_active": true
         }
     },
@@ -30,6 +33,7 @@
         "pk": 4,
         "fields": {
             "name": "Sugar",
+            "value": "sugar",
             "is_active": true
         }
     },
@@ -38,6 +42,7 @@
         "pk": 5,
         "fields": {
             "name": "Fruit",
+            "value": "fruit",
             "is_active": true
         }
     },
@@ -46,6 +51,7 @@
         "pk": 6,
         "fields": {
             "name": "Juice",
+            "value": "juice",
             "is_active": true
         }
     },
@@ -54,6 +60,7 @@
         "pk": 7,
         "fields": {
             "name": "Honey",
+            "value": "honey",
             "is_active": true
         }
     },
@@ -62,6 +69,7 @@
         "pk": 8,
         "fields": {
             "name": "Other",
+            "value": "other",
             "is_active": true
         }
     }
